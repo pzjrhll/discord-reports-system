@@ -28,10 +28,5 @@
     "path": "^0.12.7",
     "timestring": "^6.0.0",
     "uuid": "^9.0.0"
-  },
-  "overrides": {
-    "fivem-server-api": {
-      "axios": "1.7.4"
-    }
   }
 }
