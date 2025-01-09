@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, WebhookClient } = require('discord.js');
-const { exec } = require('child_process');
+require('dotenv').config();
 
 module.exports = {
 	data: new SlashCommandBuilder().setName('fetch-webhook').setDescription('Do przycisków'),
@@ -7,8 +7,9 @@ module.exports = {
 		const config = await client.config();
 
 		try {
+			const webhookUrl = process.env.REPORTS_WEBHOOK_URL;
 			const webhook = new WebhookClient({
-				url: 'https://discord.com/api/webhooks/1326981971871797308/XSihmxRrmrg2MX9b7a_rXaQtAapNox5yCfBrjbA1WkZ8VjVbd3APVdtPtp3Wncb1v3iL',
+				url: webhookUrl,
 			});
 			const triggerMsg = await webhook.fetchMessage('1326985029389258805');
 			const embedData = triggerMsg?.embeds[0];
