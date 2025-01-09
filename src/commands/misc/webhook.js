@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder, WebhookClient } = require('discord.js');
 const { exec } = require('child_process');
+require('dotenv').config();
 
 module.exports = {
 	data: new SlashCommandBuilder().setName('webhook').setDescription('Do przycisków'),
@@ -9,6 +10,7 @@ module.exports = {
 		// 	ephemeral: true,
 		// });
 		const config = await client.config();
+		const webhookUrl = process.env.REPORTS_WEBHOOK_URL;
 
 		const embed = new EmbedBuilder()
 			.setColor(config.colors.neutral)
@@ -17,7 +19,7 @@ module.exports = {
 
 		try {
 			const webhookLog = new WebhookClient({
-				url: 'https://discord.com/api/webhooks/1326981971871797308/XSihmxRrmrg2MX9b7a_rXaQtAapNox5yCfBrjbA1WkZ8VjVbd3APVdtPtp3Wncb1v3iL',
+				url: webhookUrl,
 			});
 			webhookLog.send({ embeds: [embed] });
 		} catch (err) {
