@@ -4,9 +4,16 @@ const fs = require('fs');
 const { Client, Collection, GatewayIntentBits, EmbedBuilder, WebhookClient } = require('discord.js');
 const { DateTime, setZone, Interval, diff } = require('luxon');
 const { v4: uuidv4 } = require('uuid');
-const FiveM = require("fivem-server-api")
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildVoiceStates] });
+const client = new Client({
+	intents: [
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.GuildMembers,
+		GatewayIntentBits.GuildVoiceStates,
+	],
+});
 
 // ------ SQL Function ------
 // const pool = mysql.createPool({
@@ -46,24 +53,23 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 // 	return res;
 // };
 
-
-client.config = async() => {
-   return {
-      devlockEnabled: false,
-      gitPullEnabled: false,
-      colors: {
-         primary: "#426fc2",
-         error: "#f04343",
-         warning: "#f2df33",
-         success: "#4df055",
-         neutral: "#286feb",
-      }, 
-      logsAllWebhook: 'https://discord.com/api/webhooks/1268249202505285759/M7cyoxWdv7PtSkimOIkO5f0LECxKdVPQhQ8sFtBFu3oQxmSTd2GmfQOxP6Mp5WfVyhv1',
-      images: {
-         logo: 'https://cdn.discordapp.com/attachments/1267937726779359336/1268249993047838862/u3BroQd.png?ex=66abbd59&is=66aa6bd9&hm=b5339f3286e127f5e6d9d03b787b14a06d9c68c8ddd093ce9a90071722bdcfd8&'
-      }
-   };
-}
+client.config = async () => {
+	return {
+		devlockEnabled: false,
+		gitPullEnabled: false,
+		colors: {
+			primary: '#426fc2',
+			error: '#f04343',
+			warning: '#f2df33',
+			success: '#4df055',
+			neutral: '#286feb',
+		},
+		logsAllWebhook: 'https://discord.com/api/webhooks/1268249202505285759/M7cyoxWdv7PtSkimOIkO5f0LECxKdVPQhQ8sFtBFu3oQxmSTd2GmfQOxP6Mp5WfVyhv1',
+		images: {
+			logo: 'https://cdn.discordapp.com/attachments/1267937726779359336/1268249993047838862/u3BroQd.png?ex=66abbd59&is=66aa6bd9&hm=b5339f3286e127f5e6d9d03b787b14a06d9c68c8ddd093ce9a90071722bdcfd8&',
+		},
+	};
+};
 
 const functionFolders = fs.readdirSync(`./src/functions`);
 for (const folder of functionFolders) {
@@ -72,12 +78,11 @@ for (const folder of functionFolders) {
 }
 
 client.fivemServers = {
-   pixa: new FiveM.Server('185.219.84.142:30120'),
-   realmMedium: new FiveM.Server('194.107.126.206:30120'),
-   atlantis: new FiveM.Server('45.157.235.16:30120'),
-   vlife: new FiveM.Server('185.219.84.164:30120')
-}
-
+	pixa: new FiveM.Server('185.219.84.142:30120'),
+	realmMedium: new FiveM.Server('194.107.126.206:30120'),
+	atlantis: new FiveM.Server('45.157.235.16:30120'),
+	vlife: new FiveM.Server('185.219.84.164:30120'),
+};
 
 client.handleEvents();
 // client.on('debug', (e) => {
@@ -88,4 +93,3 @@ client.handleEvents();
 client.login(process.env.DISCORD_BOT_TOKEN);
 // console.log(chalk())
 // process.exit(0);
-
