@@ -64,7 +64,7 @@ client.config = async () => {
 			success: '#4df055',
 			neutral: '#286feb',
 		},
-		logsAllWebhook: 'https://discord.com/api/webhooks/1268249202505285759/M7cyoxWdv7PtSkimOIkO5f0LECxKdVPQhQ8sFtBFu3oQxmSTd2GmfQOxP6Mp5WfVyhv1',
+		logsAllWebhook: process.env.LOGS_WEBHOOK_URL,
 		images: {
 			logo: 'https://cdn.discordapp.com/attachments/1267937726779359336/1268249993047838862/u3BroQd.png?ex=66abbd59&is=66aa6bd9&hm=b5339f3286e127f5e6d9d03b787b14a06d9c68c8ddd093ce9a90071722bdcfd8&',
 		},
@@ -76,13 +76,6 @@ for (const folder of functionFolders) {
 	const functionFiles = fs.readdirSync(`./src/functions/${folder}`).filter((file) => file.endsWith('.js'));
 	for (const file of functionFiles) require(`./functions/${folder}/${file}`)(client);
 }
-
-client.fivemServers = {
-	pixa: new FiveM.Server('185.219.84.142:30120'),
-	realmMedium: new FiveM.Server('194.107.126.206:30120'),
-	atlantis: new FiveM.Server('45.157.235.16:30120'),
-	vlife: new FiveM.Server('185.219.84.164:30120'),
-};
 
 client.handleEvents();
 // client.on('debug', (e) => {
