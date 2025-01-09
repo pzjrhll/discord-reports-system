@@ -3,4 +3,4 @@
 Pliki do ręcznego uzupełnienia:
 
 -  .env
--  /logs
+-  utworzyć /logs
