@@ -1,2 +1,6 @@
 # Discord Reports
-aaaa
+
+Pliki do ręcznego uzupełnienia:
+
+-  .env
+-  /logs
