@@ -1,6 +1,6 @@
 {
    "exclude": [
-      "TK", "kick", "ban", 
+      "tk", "kick", "ban", 
       "hq", "camping", "teamkill", "Teamkiller", "teamkilling", "cheater", "cheating",
       "Hacker", "Hacking", "mg42", "sniper",
       "garnison", "garni", "solo", "squad", 
