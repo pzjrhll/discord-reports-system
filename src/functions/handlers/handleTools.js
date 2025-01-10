@@ -6,86 +6,84 @@ const chalk = require('chalk');
 const path = require('path');
 const { error } = require('console');
 
-
 module.exports = (client) => {
+	client.getLine = (e = new Error()) => {
+		const num = 2;
+		// const e = new Error();
+		const regex = /\((.*):(\d+):(\d+)\)$/;
+		const match = regex.exec(e.stack.split('\n')[num]);
+		const filepath = match[1];
+		const fileName = path.basename(filepath);
+		const filePathRelative = path.relative('./src/', filepath);
+		const line = match[2];
+		const column = match[3];
+		return {
+			filepath,
+			fileName,
+			filePathRelative,
+			line,
+			column,
+			str: `${filePathRelative}:${line}:${column}`,
+		};
+	};
 
-   client.getLine = (e = new Error()) => {
-         const num = 2;
-         // const e = new Error();
-         const regex = /\((.*):(\d+):(\d+)\)$/
-         const match = regex.exec(e.stack.split("\n")[num]);
-         const filepath = match[1];
-         const fileName = path.basename(filepath);
-         const filePathRelative = path.relative('./src/', filepath);
-         const line = match[2];
-         const column = match[3];
-         return {
-             filepath,
-             fileName,
-             filePathRelative,
-             line,
-             column,
-             str: `${filePathRelative}:${line}:${column}`
-         };
-   }
-
-   client.writeLog = async (msg, type, loc, time, date) => {
-      const newData = `\n${date} ${time} | ${type} | ${loc} | ${JSON.stringify(msg)}`;
-      fs.appendFile(`logs/${date}.txt`, newData, (err) => {
-         if (err) console.error(err);
-      })
-   }
+	client.writeLog = async (msg, type, loc, time, date) => {
+		const newData = `\n${date} ${time} | ${type} | ${loc} | ${JSON.stringify(msg)}`;
+		fs.appendFile(`logs/${date}.txt`, newData, (err) => {
+			if (err) console.error(err);
+		});
+	};
 
 	client.handleTools = async () => {
 		const config = await client.config();
 
-      client.cinit = (msg) => {
-         const info = chalk.green.bold;
-         const txt = chalk.bold;
-         const time = DateTime.now();
-         const t = chalk.bgGreen;
+		client.cinit = (msg) => {
+			const info = chalk.green.bold;
+			const txt = chalk.bold;
+			const time = DateTime.now();
+			const t = chalk.bgGreen;
 
-         const loc = client.getLine(new Error());
-         const dateFor = time.toISODate();
-         const timeFor = time.toLocaleString(DateTime.TIME_24_WITH_SECONDS	);
+			const loc = client.getLine(new Error());
+			const dateFor = time.toISODate();
+			const timeFor = time.toLocaleString(DateTime.TIME_24_WITH_SECONDS);
 
-         console.log(t(dateFor + ' ' + timeFor) + info(' [Startup Procedure]: ') + chalk.bold(msg));
-         client.writeLog(msg, 'Startup Procedure', loc?.str, timeFor, dateFor);
-      }
+			console.log(t(dateFor + ' ' + timeFor) + info(' [Startup Procedure]: ') + chalk.bold(msg));
+			client.writeLog(msg, 'Startup Procedure', loc?.str, timeFor, dateFor);
+		};
 
-      client.cout = (msg) => {
-         const info = chalk.blue.bold;
-         const txt = chalk.bold;
-         const time = DateTime.now();
-         const t = chalk.bgBlue;
+		client.cout = (msg) => {
+			const info = chalk.blue.bold;
+			const txt = chalk.bold;
+			const time = DateTime.now();
+			const t = chalk.bgBlue;
 
-         const loc = client.getLine(new Error());
-         const dateFor = time.toISODate();
-         const timeFor = time.toLocaleString(DateTime.TIME_24_WITH_SECONDS	);
+			const loc = client.getLine(new Error());
+			const dateFor = time.toISODate();
+			const timeFor = time.toLocaleString(DateTime.TIME_24_WITH_SECONDS);
 
-         if (typeof msg == 'number' || typeof msg == 'boolean' || typeof msg == 'string' || typeof msg == 'undefined' || msg === null) {
-            console.log(t(dateFor + ' ' + timeFor) + info(' [System Output]: ') + txt(msg));
-         } else {
-            console.log(t(dateFor + ' ' + timeFor) + info(' [System Output]: ') + txt('Avaiable below:'));
-            console.log(msg)
-         }
-         client.writeLog(msg, 'System Output', loc?.str, timeFor, dateFor);
-      }
+			if (typeof msg == 'number' || typeof msg == 'boolean' || typeof msg == 'string' || typeof msg == 'undefined' || msg === null) {
+				console.log(t(dateFor + ' ' + timeFor) + info(' [System Output]: ') + txt(msg));
+			} else {
+				console.log(t(dateFor + ' ' + timeFor) + info(' [System Output]: ') + txt('Avaiable below:'));
+				console.log(msg);
+			}
+			client.writeLog(msg, 'System Output', loc?.str, timeFor, dateFor);
+		};
 
-      client.cerr = (msg) => {
-         const info = chalk.red.bold;
-         const txt = chalk.bold;
-         const time = DateTime.now();
-         const t = chalk.bgRed;
+		client.cerr = (msg) => {
+			const info = chalk.red.bold;
+			const txt = chalk.bold;
+			const time = DateTime.now();
+			const t = chalk.bgRed;
 
-         const loc = client.getLine(new Error());
-         const dateFor = time.toISODate();
-         const timeFor = time.toLocaleString(DateTime.TIME_24_WITH_SECONDS	);
+			const loc = client.getLine(new Error());
+			const dateFor = time.toISODate();
+			const timeFor = time.toLocaleString(DateTime.TIME_24_WITH_SECONDS);
 
-         console.log(t(dateFor + ' ' + timeFor) + info(' [System Error]: ') + txt(msg));
-         console.error(msg);
-         client.writeLog(msg, 'System Error', loc?.str, timeFor, dateFor);
-      }
+			console.log(t(dateFor + ' ' + timeFor) + info(' [System Error]: ') + txt(msg));
+			console.error(msg);
+			client.writeLog(msg, 'System Error', loc?.str, timeFor, dateFor);
+		};
 
 		client.sql = async (query, args) => {
 			let res;
@@ -138,8 +136,14 @@ module.exports = (client) => {
 			const timeNow = DateTime.now().setZone('Europe/Warsaw').setLocale('pl').toISO();
 			const userId = interaction.user.id;
 			let command;
-			if (interaction.options._subcommand) command = `${interaction.commandName}-${interaction.options._subcommand}`;
-			else command = interaction.commandName;
+			if (interaction.isButton()) {
+				const { customId } = interaction;
+				const [buttonClass, id] = customId.split(':');
+				command = buttonClass;
+			} else {
+				if (interaction.options?._subcommand) command = `${interaction.commandName}-${interaction.options._subcommand}`;
+				else command = interaction.commandName;
+			}
 
 			try {
 				let embed = new EmbedBuilder()
@@ -214,6 +218,6 @@ module.exports = (client) => {
 		};
 
 		// console.log('[TOOLS] Loaded useful functions.');
-      client.cinit('Loaded developer utility tools.')
+		client.cinit('Loaded developer utility tools.');
 	};
 };
