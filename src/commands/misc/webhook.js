@@ -15,7 +15,7 @@ module.exports = {
 		const embed = new EmbedBuilder()
 			.setColor(config.colors.neutral)
 			.setAuthor({ name: 'AdolfRizzler' })
-			.setDescription('!admin gracz skibidsigmeusz teamkilluje nas co chwile :(((');
+			.setDescription('!admin gracz dust_world teamkilluje nas na hq xd');
 
 		try {
 			const webhookLog = new WebhookClient({
