@@ -26,7 +26,7 @@ module.exports = {
 
 		const row = new ActionRowBuilder().addComponents([new ButtonBuilder().setCustomId(`report-close:${actionId}`).setLabel('Ogarnięte').setStyle(ButtonStyle.Success)]);
 
-		const fields = [...embedData.fields.slice(0, 2), { name: 'Admin', value: `<@${interaction.user.id}>`, inline: true }, ...embedData.fields.slice(2)];
+		const fields = [...embedData.fields, { name: '\u200B', value: '\u200B' }, { name: 'Rozpatrujący zgłoszenie', value: interaction.user.toString() }];
 		const embed = new EmbedBuilder()
 			.setColor('#ccedce')
 			.setDescription(embedData.description)

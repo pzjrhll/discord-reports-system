@@ -24,11 +24,16 @@ module.exports = {
 			return await client.logAction(`Wystąpił błąd.`, interaction, null, false);
 		}
 
-		// const fields = [...embedData.fields.slice(0, 2), { name: 'Admin', value: `<@${interaction.user.id}>`, inline: true }, ...embedData.fields.slice(3)];
+		let fields = [];
+		if (embedData.fields[embedData.fields.length - 1].name === 'Rozpatrujący zgłoszenie') {
+			fields = [...embedData.fields.slice(0, -1), { name: 'Rozpatrzone przez', value: interaction.user.toString() }];
+		} else {
+			fields = [...embedData.fields, { name: '\u200B', value: '\u200B' }, { name: 'Rozpatrzone przez', value: interaction.user.toString() }];
+		}
 		const embed = new EmbedBuilder()
 			.setColor('#40e348')
 			.setDescription(embedData.description)
-			.addFields(embedData.fields)
+			.addFields(fields)
 			.setTitle('Zgłoszenie - ZAMKNIĘTE')
 			.setFooter({ text: embedData?.footer?.text });
 		await triggerMsg.edit({
