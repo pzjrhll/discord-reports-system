@@ -31,7 +31,6 @@ module.exports = {
 			threshold: 0.45,
 		};
 		const fuse = new Fuse(list, options);
-
 		let results = [];
 		for (const word of input) {
 			if (word.length < 4) continue;
@@ -39,7 +38,6 @@ module.exports = {
 		}
 
 		results.sort((a, b) => a.score - b.score);
-		// const result = fuse.search(inputRaw);
 		const best = results[0];
 		console.log(best);
 
