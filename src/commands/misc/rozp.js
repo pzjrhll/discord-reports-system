@@ -8,7 +8,7 @@ require('dotenv').config();
 module.exports = {
 	data: new SlashCommandBuilder().setName('rozpoznaj').setDescription('Do przycisków'),
 	async execute(interaction, client) {
-		const inputRaw = 'osama';
+		const inputRaw = 'siema dustworld mnie rozpierdala na spawnie co chwile';
 		let input = inputRaw.replace(/\[.*?\]/g, ''); // kasowanie tagów klanowych
 		input = input.replace(/[^a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ ]/g, ''); // kasowanie znaków specjalnych
 		input = input.split(/\s+/); // rozdzielenie na słowa
@@ -28,8 +28,7 @@ module.exports = {
 		const options = {
 			includeScore: true,
 			keys: ['nameParsed'],
-			minMatchCharLength: 3,
-			threshold: 0.5,
+			threshold: 0.45,
 		};
 		const fuse = new Fuse(list, options);
 
@@ -44,9 +43,13 @@ module.exports = {
 		const best = results[0];
 		console.log(best);
 
+		console.log(results);
+		console.log(input);
+		console.log(list);
+
 		await interaction.reply({
 			ephemeral: true,
-			content: `Najbardziej pasuje: ${best.item.name} (${best.item.id})`,
+			content: `Najbardziej pasuje: ${best?.item?.name} (${best?.item?.id})`,
 		});
 	},
 };
