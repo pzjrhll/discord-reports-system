@@ -48,7 +48,7 @@ async function processReport(message, client) {
 	const potentialOffender = await guessUser(description.join(' '));
 	const serverId = embedData?.footer?.text.replace(/\D/g, '');
 
-	const embed = new EmbedBuilder().setColor('#e62525').setTitle(`Zgłoszenie - NOWE`).setDescription(description.join(' ')).addFields(
+	const embed = new EmbedBuilder().setColor('#f03e3e').setTitle(`Zgłoszenie - NOWE`).setDescription(description.join(' ')).addFields(
 		{ name: 'Zgłaszający', value: victim, inline: true },
 		{ name: 'ID', value: 'e872bc72ah72shhjgdas8e8727gs7272', inline: true },
 		{ name: 'Squad', value: 'Axis | FOX | Squad Leader', inline: true },

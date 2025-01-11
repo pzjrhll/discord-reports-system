@@ -28,7 +28,7 @@ module.exports = {
 
 		const fields = [...embedData.fields, { name: '\u200B', value: '\u200B' }, { name: 'Rozpatrujący zgłoszenie', value: interaction.user.toString() }];
 		const embed = new EmbedBuilder()
-			.setColor('#ccedce')
+			.setColor('#e8d261')
 			.setDescription(embedData.description)
 			.addFields(fields)
 			.setTitle('Zgłoszenie - W TRAKCIE')
