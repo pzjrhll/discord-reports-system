@@ -41,24 +41,19 @@ async function guessUser(inputRaw) {
 async function processReport(message, client) {
 	const triggerMsg = message;
 	const embedData = triggerMsg?.embeds[0];
-	if (!embedData) {
-		console.log('No embed data');
-		return;
-	}
+	if (!embedData) return console.log('No embed data');
 
-	const victim = embedData?.author?.name;
-	let description = embedData?.description;
-	description = description.split(/\s+/).slice(1);
-
+	const victim = embedData?.author?.name.split(' ').slice(0, -1).join(' ');
+	const description = embedData?.description.split(/\s+/).slice(1);
 	const potentialOffender = await guessUser(description.join(' '));
-	console.log(potentialOffender);
+	const serverId = embedData?.footer?.text.replace(/\D/g, '');
 
 	const embed = new EmbedBuilder().setColor('#e62525').setTitle(`Zgłoszenie - NOWE`).setDescription(description.join(' ')).addFields(
 		{ name: 'Zgłaszający', value: victim, inline: true },
 		{ name: 'ID', value: 'e872bc72ah72shhjgdas8e8727gs7272', inline: true },
-		{ name: 'Status VIP', value: 'Tak', inline: true },
-		{ name: 'Czas na serwerze | połączenia', value: '20h 25min | 100', inline: true },
 		{ name: 'Squad', value: 'Axis | FOX | Squad Leader', inline: true },
+		{ name: 'Czas na serwerze | połączenia', value: '20h 25min | 100', inline: true },
+		{ name: 'Status VIP', value: 'Tak', inline: true },
 		{ name: 'Watchlist', value: '-', inline: true },
 		{ name: 'Kary', value: 'Ban: 0 | Kick: 1', inline: true },
 		{ name: 'K/D/TK', value: '10/7/5', inline: true },
@@ -68,9 +63,9 @@ async function processReport(message, client) {
 
 		{ name: 'Podejrzany', value: potentialOffender?.name, inline: true },
 		{ name: 'ID', value: 'e872bc72ah72shhjgdas8e8727gs7272', inline: true },
-		{ name: 'Status VIP', value: 'Tak', inline: true },
-		{ name: 'Czas na serwerze | połączenia', value: '20h 25min | 100', inline: true },
 		{ name: 'Squad', value: 'Axis | FOX | Squad Leader', inline: true },
+		{ name: 'Czas na serwerze | połączenia', value: '20h 25min | 100', inline: true },
+		{ name: 'Status VIP', value: 'Tak', inline: true },
 		{ name: 'Watchlist', value: 'zachowuje się jak ameba umysłowa, ostrzegany wielokrotnie', inline: true },
 		{ name: 'Kary', value: 'Ban: 1 | Kick: 2', inline: true },
 		{ name: 'K/D/TK', value: '10/7/5', inline: true },
@@ -87,7 +82,7 @@ async function processReport(message, client) {
 		new ButtonBuilder().setCustomId(`report-close:${msg.id}`).setLabel('Ogarnięte').setStyle(ButtonStyle.Success),
 	]);
 
-	return await msg.edit({ components: [row], embeds: [embed.setFooter({ text: `ID Zgłoszenia: ${msg.id} | Server #1` })] });
+	return await msg.edit({ components: [row], embeds: [embed.setFooter({ text: `ID Zgłoszenia: ${msg.id} | Server #${serverId}` })] });
 }
 
 module.exports = { processReport };

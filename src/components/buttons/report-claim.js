@@ -32,7 +32,7 @@ module.exports = {
 			.setDescription(embedData.description)
 			.addFields(fields)
 			.setTitle('Zgłoszenie - W TRAKCIE')
-			.setFooter({ text: `ID Zgłoszenia: ${actionId}` });
+			.setFooter({ text: embedData?.footer?.text });
 
 		await triggerMsg.edit({
 			embeds: [embed],

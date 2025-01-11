@@ -30,7 +30,7 @@ module.exports = {
 			.setDescription(embedData.description)
 			.addFields(embedData.fields)
 			.setTitle('Zgłoszenie - ZAMKNIĘTE')
-			.setFooter({ text: `ID Zgłoszenia: ${actionId}` });
+			.setFooter({ text: embedData?.footer?.text });
 		await triggerMsg.edit({
 			embeds: [embed],
 			components: [],
