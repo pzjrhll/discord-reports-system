@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, WebhookClient } = require('discord.js');
-const playerSample = require('../../config/players.json');
+const { getPlayers, getPlayersFull } = require('./playerList.js');
 const Fuse = require('fuse.js');
 require('dotenv').config();
 
@@ -9,16 +9,17 @@ async function guessUser(inputRaw) {
 	input = input.split(/\s+/); // rozdzielenie na słowa
 	input.filter((word) => word !== 'PZJR' && word !== 'NZN');
 
+	const playerList = await getPlayers();
 	let list = [];
-	playerSample.result.forEach((player) => {
+	playerList.forEach((player) => {
 		list.push({
-			name: player[0],
-			nameParsed: player[0]
+			name: player.name,
+			nameParsed: player.name
 				.replace(/\[.*?\]/g, '') // kasowanie tagów klanowych
 				.replace(/[^a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ ]/g, '') // kasowanie znaków specjalnych
 				.split(/\s+/)
 				.filter((word) => word !== 'PZJR' && word !== 'NZN'),
-			id: player[1],
+			id: player.id,
 		});
 	});
 
