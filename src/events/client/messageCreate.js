@@ -8,8 +8,9 @@ module.exports = {
 	async execute(message, client) {
 		try {
 			// if (message.author.bot) return;
+			const config = client.config();
 
-			if (message.channel.id === process.env.REPORTS_WEBHOOK_CHANNEL_ID && message.author.bot && message.author.id !== process.env.DISCORD_CLIENT_ID) {
+			if (config.serverReportsWebhookChannelId.includes(message.channel.id) && message.author.bot && message.author.id !== process.env.DISCORD_CLIENT_ID) {
 				return processReport(message, client);
 			}
 		} catch (err) {

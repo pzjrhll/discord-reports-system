@@ -15,6 +15,8 @@ const client = new Client({
 	],
 });
 
+const localConfig = JSON.parse(fs.readFileSync('./src/config/local.json', 'utf-8'));
+
 // ------ SQL Function ------
 // const pool = mysql.createPool({
 // 	connectionLimit: 5,
@@ -53,22 +55,10 @@ const client = new Client({
 // 	return res;
 // };
 
-client.config = async () => {
-	return {
-		devlockEnabled: false,
-		gitPullEnabled: false,
-		colors: {
-			primary: '#426fc2',
-			error: '#f04343',
-			warning: '#f2df33',
-			success: '#4df055',
-			neutral: '#286feb',
-		},
-		logsAllWebhook: process.env.LOGS_WEBHOOK_URL,
-		images: {
-			logo: 'https://cdn.discordapp.com/attachments/1267937726779359336/1268249993047838862/u3BroQd.png?ex=66abbd59&is=66aa6bd9&hm=b5339f3286e127f5e6d9d03b787b14a06d9c68c8ddd093ce9a90071722bdcfd8&',
-		},
-	};
+client.config = () => {
+	let obj = localConfig;
+	obj.logsAllWebhook = process.env.LOGS_WEBHOOK_URL;
+	return obj;
 };
 
 const functionFolders = fs.readdirSync(`./src/functions`);

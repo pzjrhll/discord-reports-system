@@ -39,6 +39,7 @@ async function guessUser(inputRaw) {
 }
 
 async function processReport(message, client) {
+	const config = client.config();
 	const triggerMsg = message;
 	const embedData = triggerMsg?.embeds[0];
 	if (!embedData) return console.log('No embed data');
@@ -72,10 +73,10 @@ async function processReport(message, client) {
 		{ name: 'Seria K/Z/TK', value: '2/3/1', inline: true }
 	);
 
-	const channel = await message.guild.channels.fetch(process.env.REPORTS_PREVIEW_CHANNEL_ID);
+	const channel = await message.guild.channels.fetch(config.serverReportsDiscordChannelId);
 	const msg = await channel.send({
 		// embeds: [embed],
-		content: '<@&847932479696404550>',
+		content: `<@&${config.hllAdminDiscordRole}>`,
 	});
 	const row = new ActionRowBuilder().addComponents([
 		new ButtonBuilder().setCustomId(`report-claim:${msg.id}`).setLabel('Zajmuję się tym').setStyle(ButtonStyle.Primary),

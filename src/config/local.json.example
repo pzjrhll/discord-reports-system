@@ -1,0 +1,23 @@
+{
+   "serverReportsWebhookChannelId": [],
+   "serverReportsDiscordChannelId": "",
+   "servers": {
+      "server1": {
+         "name": "",
+         "apiBaseUrl": ""
+      }
+   },
+   "hllAdminDiscordRole": "",
+   "devlockEnabled": false,
+   "gitPullEnabled": false,
+   "colors": {
+      "primary": "#426fc2",
+      "error": "#f04343",
+      "warning": "#f2df33",
+      "success": "#4df055",
+      "neutral": "#286feb"
+   },
+   "images": {
+      "logo": "https://cdn.discordapp.com/attachments/919314258850885732/1329144559816671292/360.png?ex=678945d5&is=6787f455&hm=3a8fd5ac57f8854822f33eb9f52f21e7d91c27b3cfc3dbd4d6b3b586fa7132ae&"
+   }
+}
