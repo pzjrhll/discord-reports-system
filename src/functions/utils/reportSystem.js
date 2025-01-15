@@ -46,7 +46,7 @@ async function processReport(message, client) {
 	const victim = embedData?.author?.name.split(' ').slice(0, -1).join(' ');
 	const description = embedData?.description.split(/\s+/).slice(1);
 	const potentialOffender = await guessUser(description.join(' '));
-	const serverId = embedData?.footer?.text.replace(/\D/g, '');
+	const serverId = embedData?.footer?.text;
 
 	const embed = new EmbedBuilder().setColor('#f03e3e').setTitle(`Zgłoszenie - NOWE`).setDescription(description.join(' ')).addFields(
 		{ name: 'Zgłaszający', value: victim, inline: true },
@@ -82,7 +82,7 @@ async function processReport(message, client) {
 		new ButtonBuilder().setCustomId(`report-close:${msg.id}`).setLabel('Ogarnięte').setStyle(ButtonStyle.Success),
 	]);
 
-	return await msg.edit({ components: [row], embeds: [embed.setFooter({ text: `ID Zgłoszenia: ${msg.id} | Server #${serverId}` })] });
+	return await msg.edit({ components: [row], embeds: [embed.setFooter({ text: `ID Zgłoszenia: ${msg.id} | ${serverId}` })] });
 }
 
 module.exports = { processReport };
