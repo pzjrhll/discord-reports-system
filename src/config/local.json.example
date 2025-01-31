@@ -3,8 +3,24 @@
    "serverReportsDiscordChannelId": "",
    "servers": {
       "server1": {
-         "name": "",
-         "apiBaseUrl": ""
+         "name": "server1",
+         "apiBaseUrl": "https://rcon1.pzjr.pl/api/"
+      },
+      "server2": {
+         "name": "server2",
+         "apiBaseUrl": "https://rcon2.pzjr.pl/api/"
+      },
+      "server3": {
+         "name": "server3",
+         "apiBaseUrl": "https://rcon3.pzjr.pl/api/"
+      },
+      "server4": {
+         "name": "server4",
+         "apiBaseUrl": "https://rcon4.pzjr.pl/api/"
+      },
+      "server5": {
+         "name": "server5",
+         "apiBaseUrl": "https://rcon5.pzjr.pl/api/"
       }
    },
    "hllAdminDiscordRole": "",
