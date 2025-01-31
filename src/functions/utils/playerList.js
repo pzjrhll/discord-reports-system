@@ -22,6 +22,9 @@ async function parsePlayerInfo(serverid, playername) {
 	const hours = Math.floor(totalPlaytimeSeconds / 3600);
 	const minutes = Math.floor((totalPlaytimeSeconds % 3600) / 60);
 	const penalties = player?.profile?.penalty_count;
+	const punishNum = player?.profile?.received_actions.filter(
+		(action) => action.by !== 'SeedingRulesAutomod' && action.by !== 'NoLeaderWatch' && !action.by.toLowerCase().includes('automod')
+	).length;
 
 	let playerInfo = {
 		name: player?.name,
@@ -30,7 +33,7 @@ async function parsePlayerInfo(serverid, playername) {
 		playtime: `${hours}h ${minutes}m | ${player?.profile?.sessions_count}`,
 		vip: player?.is_vip ? 'Tak' : 'Nie',
 		watchlist: player?.profile?.watchlist || '-',
-		penalty_count: `Ban: ${penalties?.PERMABAN + penalties?.TEMPBAN} | Kick: ${penalties?.KICK}`,
+		penalty_count: `Ban: ${penalties?.PERMABAN + penalties?.TEMPBAN} | Kick: ${penalties?.KICK} | Punish: ${punishNum}`,
 		stats: `WIP`,
 		series: `WIP`,
 	};
