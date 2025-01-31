@@ -58,16 +58,6 @@ async function processReport(message, client) {
 		.setTitle(`Zgłoszenie - NOWE`)
 		.setDescription(description.join(' '))
 		.addFields(
-			{ name: 'Podejrzany gracz', value: offenderData?.name || 'N/A', inline: true },
-			{ name: 'ID', value: offenderData?.player_id || 'N/A', inline: true },
-			{ name: 'Squad', value: offenderData?.squad || 'N/A', inline: true },
-			{ name: 'Czas na serwerze', value: offenderData?.playtime || 'N/A', inline: true },
-			{ name: 'Status VIP', value: offenderData?.vip || 'N/A', inline: true },
-			{ name: 'Watchlist', value: offenderData?.watchlist || 'N/A', inline: true },
-			{ name: 'Kary', value: offenderData?.penalty_count || 'N/A', inline: true },
-			{ name: 'Statystyki', value: offenderData?.stats || 'N/A', inline: true },
-			{ name: 'Serie', value: offenderData?.series || 'N/A', inline: true },
-
 			{ name: '\u200B', value: '\u200B' },
 
 			{ name: 'Zgłaszający', value: victimData?.name || 'N/A', inline: true },
@@ -78,7 +68,19 @@ async function processReport(message, client) {
 			{ name: 'Watchlist', value: victimData?.watchlist || 'N/A', inline: true },
 			{ name: 'Kary', value: victimData?.penalty_count || 'N/A', inline: true },
 			{ name: 'K/D/TK', value: victimData?.stats || 'N/A', inline: true },
-			{ name: 'Seria K/Z/TK', value: victimData?.series || 'N/A', inline: true }
+			{ name: 'Seria K/Z/TK', value: victimData?.series || 'N/A', inline: true },
+
+			{ name: '\u200B', value: '\u200B' },
+
+			{ name: 'Podejrzany gracz', value: offenderData?.name || 'N/A', inline: true },
+			{ name: 'ID', value: offenderData?.player_id || 'N/A', inline: true },
+			{ name: 'Squad', value: offenderData?.squad || 'N/A', inline: true },
+			{ name: 'Czas na serwerze', value: offenderData?.playtime || 'N/A', inline: true },
+			{ name: 'Status VIP', value: offenderData?.vip || 'N/A', inline: true },
+			{ name: 'Watchlist', value: offenderData?.watchlist || 'N/A', inline: true },
+			{ name: 'Kary', value: offenderData?.penalty_count || 'N/A', inline: true },
+			{ name: 'Statystyki', value: offenderData?.stats || 'N/A', inline: true },
+			{ name: 'Serie', value: offenderData?.series || 'N/A', inline: true }
 		);
 
 	const channel = await message.guild.channels.fetch(config.serverReportsDiscordChannelId);
