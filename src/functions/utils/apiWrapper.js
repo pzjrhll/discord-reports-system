@@ -22,7 +22,7 @@ async function getPlayerIds(serverId) {
 
 async function getPlayerStats(serverId, playerName) {
 	const server = localConfig.servers[serverId];
-	const url = `${server.apiBaseUrl}/get_live_scoreboard`;
+	const url = `${server.apiBaseUrl}/get_live_game_stats`;
 
 	try {
 		const response = await axios.get(url, {
