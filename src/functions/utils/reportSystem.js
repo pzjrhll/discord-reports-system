@@ -1,15 +1,15 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, WebhookClient } = require('discord.js');
-const { getPlayers, getPlayersFull } = require('./playerList.js');
+const { parsePlayerList, parsePlayerInfo } = require('./playerList.js');
 const Fuse = require('fuse.js');
 require('dotenv').config();
 
-async function guessUser(inputRaw) {
+async function guessUser(inputRaw, serverId) {
 	let input = inputRaw.replace(/\[.*?\]/g, ''); // kasowanie tagów klanowych
 	input = input.replace(/[^a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ ]/g, ''); // kasowanie znaków specjalnych
 	input = input.split(/\s+/); // rozdzielenie na słowa
 	input.filter((word) => word !== 'PZJR' && word !== 'NZN');
 
-	const playerList = await getPlayers();
+	const playerList = await parsePlayerList(serverId);
 	let list = [];
 	playerList.forEach((player) => {
 		list.push({
@@ -45,34 +45,40 @@ async function processReport(message, client) {
 	const embedData = triggerMsg?.embeds[0];
 	if (!embedData) return console.log('No embed data');
 
-	const victim = embedData?.author?.name.split(' ').slice(0, -1).join(' ');
+	const serverId = embedData?.footer?.text.toLowerCase();
 	const description = embedData?.description.split(/\s+/).slice(1);
-	const potentialOffender = await guessUser(description.join(' '));
-	const serverId = embedData?.footer?.text;
+	const potentialOffender = await guessUser(description.join(' '), serverId);
+	const offenderData = await parsePlayerInfo(serverId, potentialOffender?.name);
+	const victim = embedData?.author?.name.split(' ').slice(0, -1).join(' ');
+	const victimData = await parsePlayerInfo(serverId, victim);
 
-	const embed = new EmbedBuilder().setColor('#f03e3e').setTitle(`Zgłoszenie - NOWE`).setDescription(description.join(' ')).addFields(
-		{ name: 'Zgłaszający', value: victim, inline: true },
-		{ name: 'ID', value: 'e872bc72ah72shhjgdas8e8727gs7272', inline: true },
-		{ name: 'Squad', value: 'Axis | FOX | Squad Leader', inline: true },
-		{ name: 'Czas na serwerze | połączenia', value: '20h 25min | 100', inline: true },
-		{ name: 'Status VIP', value: 'Tak', inline: true },
-		{ name: 'Watchlist', value: '-', inline: true },
-		{ name: 'Kary', value: 'Ban: 0 | Kick: 1', inline: true },
-		{ name: 'K/D/TK', value: '10/7/5', inline: true },
-		{ name: 'Seria K/Z/TK', value: '2/3/1', inline: true },
+   const embed = new EmbedBuilder()
+      .setColor('#f03e3e')
+      .setTitle(`Zgłoszenie - NOWE`)
+      .setDescription(description.join(' '))
+      .addFields(
+         { name: 'Podejrzany gracz', value: offenderData?.name || 'N/A', inline: true },
+         { name: 'ID', value: offenderData?.player_id || 'N/A', inline: true },
+         { name: 'Squad', value: offenderData?.squad || 'N/A', inline: true },
+         { name: 'Czas na serwerze | połączenia', value: offenderData?.playtime || 'N/A', inline: true },
+         { name: 'Status VIP', value: offenderData?.vip || 'N/A', inline: true },
+         { name: 'Watchlist', value: offenderData?.watchlist || 'N/A', inline: true },
+         { name: 'Kary', value: offenderData?.penalty_count || 'N/A', inline: true },
+         { name: 'K/D/TK', value: offenderData?.stats || 'N/A', inline: true },
+         { name: 'Seria K/Z/TK', value: offenderData?.series || 'N/A', inline: true },
 
-		{ name: '\u200B', value: '\u200B' },
+         { name: '\u200B', value: '\u200B' },
 
-		{ name: 'Podejrzany', value: potentialOffender?.name, inline: true },
-		{ name: 'ID', value: 'e872bc72ah72shhjgdas8e8727gs7272', inline: true },
-		{ name: 'Squad', value: 'Axis | FOX | Squad Leader', inline: true },
-		{ name: 'Czas na serwerze | połączenia', value: '20h 25min | 100', inline: true },
-		{ name: 'Status VIP', value: 'Tak', inline: true },
-		{ name: 'Watchlist', value: 'zachowuje się jak ameba umysłowa, ostrzegany wielokrotnie', inline: true },
-		{ name: 'Kary', value: 'Ban: 1 | Kick: 2', inline: true },
-		{ name: 'K/D/TK', value: '10/7/5', inline: true },
-		{ name: 'Seria K/Z/TK', value: '2/3/1', inline: true }
-	);
+         { name: 'Zgłaszający', value: victimData?.name || 'N/A', inline: true },
+         { name: 'ID', value: victimData?.player_id || 'N/A', inline: true },
+         { name: 'Squad', value: victimData?.squad || 'N/A', inline: true },
+         { name: 'Czas na serwerze | połączenia', value: victimData?.playtime || 'N/A', inline: true },
+         { name: 'Status VIP', value: victimData?.vip || 'N/A', inline: true },
+         { name: 'Watchlist', value: victimData?.watchlist || 'N/A', inline: true },
+         { name: 'Kary', value: victimData?.penalty_count || 'N/A', inline: true },
+         { name: 'K/D/TK', value: victimData?.stats || 'N/A', inline: true },
+         { name: 'Seria K/Z/TK', value: victimData?.series || 'N/A', inline: true }
+      );
 
 	const channel = await message.guild.channels.fetch(config.serverReportsDiscordChannelId);
 	const msg = await channel.send({
