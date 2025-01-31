@@ -1,5 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, WebhookClient } = require('discord.js');
 const { parsePlayerList, parsePlayerInfo } = require('./playerList.js');
+const { getPlayerStats } = require('./apiWrapper.js');
+
 const Fuse = require('fuse.js');
 require('dotenv').config();
 
@@ -49,36 +51,39 @@ async function processReport(message, client) {
 	const description = embedData?.description.split(/\s+/).slice(1);
 	const potentialOffender = await guessUser(description.join(' '), serverId);
 	const offenderData = await parsePlayerInfo(serverId, potentialOffender?.name);
+	const offenderStats = await getPlayerStats(serverId, potentialOffender?.name);
 	const victim = embedData?.author?.name.split(' ').slice(0, -1).join(' ');
 	const victimData = await parsePlayerInfo(serverId, victim);
+	const victimStats = await getPlayerStats(serverId, victim);
+	console.log(offenderStats, victimStats);
 
-   const embed = new EmbedBuilder()
-      .setColor('#f03e3e')
-      .setTitle(`Zgłoszenie - NOWE`)
-      .setDescription(description.join(' '))
-      .addFields(
-         { name: 'Podejrzany gracz', value: offenderData?.name || 'N/A', inline: true },
-         { name: 'ID', value: offenderData?.player_id || 'N/A', inline: true },
-         { name: 'Squad', value: offenderData?.squad || 'N/A', inline: true },
-         { name: 'Czas na serwerze | połączenia', value: offenderData?.playtime || 'N/A', inline: true },
-         { name: 'Status VIP', value: offenderData?.vip || 'N/A', inline: true },
-         { name: 'Watchlist', value: offenderData?.watchlist || 'N/A', inline: true },
-         { name: 'Kary', value: offenderData?.penalty_count || 'N/A', inline: true },
-         { name: 'K/D/TK', value: offenderData?.stats || 'N/A', inline: true },
-         { name: 'Seria K/Z/TK', value: offenderData?.series || 'N/A', inline: true },
+	const embed = new EmbedBuilder()
+		.setColor('#f03e3e')
+		.setTitle(`Zgłoszenie - NOWE`)
+		.setDescription(description.join(' '))
+		.addFields(
+			{ name: 'Podejrzany gracz', value: offenderData?.name || 'N/A', inline: true },
+			{ name: 'ID', value: offenderData?.player_id || 'N/A', inline: true },
+			{ name: 'Squad', value: offenderData?.squad || 'N/A', inline: true },
+			{ name: 'Czas na serwerze | połączenia', value: offenderData?.playtime || 'N/A', inline: true },
+			{ name: 'Status VIP', value: offenderData?.vip || 'N/A', inline: true },
+			{ name: 'Watchlist', value: offenderData?.watchlist || 'N/A', inline: true },
+			{ name: 'Kary', value: offenderData?.penalty_count || 'N/A', inline: true },
+			{ name: 'K/D/TK', value: offenderData?.stats || 'N/A', inline: true },
+			{ name: 'Seria K/Z/TK', value: offenderData?.series || 'N/A', inline: true },
 
-         { name: '\u200B', value: '\u200B' },
+			{ name: '\u200B', value: '\u200B' },
 
-         { name: 'Zgłaszający', value: victimData?.name || 'N/A', inline: true },
-         { name: 'ID', value: victimData?.player_id || 'N/A', inline: true },
-         { name: 'Squad', value: victimData?.squad || 'N/A', inline: true },
-         { name: 'Czas na serwerze | połączenia', value: victimData?.playtime || 'N/A', inline: true },
-         { name: 'Status VIP', value: victimData?.vip || 'N/A', inline: true },
-         { name: 'Watchlist', value: victimData?.watchlist || 'N/A', inline: true },
-         { name: 'Kary', value: victimData?.penalty_count || 'N/A', inline: true },
-         { name: 'K/D/TK', value: victimData?.stats || 'N/A', inline: true },
-         { name: 'Seria K/Z/TK', value: victimData?.series || 'N/A', inline: true }
-      );
+			{ name: 'Zgłaszający', value: victimData?.name || 'N/A', inline: true },
+			{ name: 'ID', value: victimData?.player_id || 'N/A', inline: true },
+			{ name: 'Squad', value: victimData?.squad || 'N/A', inline: true },
+			{ name: 'Czas na serwerze | połączenia', value: victimData?.playtime || 'N/A', inline: true },
+			{ name: 'Status VIP', value: victimData?.vip || 'N/A', inline: true },
+			{ name: 'Watchlist', value: victimData?.watchlist || 'N/A', inline: true },
+			{ name: 'Kary', value: victimData?.penalty_count || 'N/A', inline: true },
+			{ name: 'K/D/TK', value: victimData?.stats || 'N/A', inline: true },
+			{ name: 'Seria K/Z/TK', value: victimData?.series || 'N/A', inline: true }
+		);
 
 	const channel = await message.guild.channels.fetch(config.serverReportsDiscordChannelId);
 	const msg = await channel.send({
