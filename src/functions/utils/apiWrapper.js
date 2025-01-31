@@ -20,6 +20,24 @@ async function getPlayerIds(serverId) {
 	}
 }
 
+async function getPlayerStats(serverId, playerName) {
+	const server = localConfig.servers[serverId];
+	const url = `${server.apiBaseUrl}/get_live_scoreboard`;
+
+	try {
+		const response = await axios.get(url, {
+			headers: {
+				Authorization: `Bearer ${apiKey}`,
+			},
+		});
+		const data = response?.data?.result?.stats.filter((player) => player.player === playerName);
+		return data[0] || null;
+	} catch (error) {
+		console.error('Error fetching player IDs:', error);
+		throw error;
+	}
+}
+
 async function getPlayerDetailedInfo(serverId, playerName) {
 	const server = localConfig.servers[serverId];
 	const url = `${server.apiBaseUrl}get_detailed_player_info?player_name=${playerName}`;
@@ -37,4 +55,4 @@ async function getPlayerDetailedInfo(serverId, playerName) {
 	}
 }
 
-module.exports = { getPlayerIds, getPlayerDetailedInfo };
+module.exports = { getPlayerIds, getPlayerDetailedInfo, getPlayerStats };
