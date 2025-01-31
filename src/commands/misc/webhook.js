@@ -14,7 +14,7 @@ module.exports = {
 
 		const embed = new EmbedBuilder()
 			.setColor(config.colors.neutral)
-			.setAuthor({ name: 'OTP Inferno [Axis][Team]' })
+			.setAuthor({ name: 'Llama Warrior [Axis][Team]' })
 			.setDescription('!admin gracz exekk teamkilluje nas na hq xd')
 			.setFooter({ text: 'Server1' });
 
