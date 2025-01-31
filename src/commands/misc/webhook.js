@@ -14,8 +14,8 @@ module.exports = {
 
 		const embed = new EmbedBuilder()
 			.setColor(config.colors.neutral)
-			.setAuthor({ name: 'AdolfRizzler [Axis][Team]' })
-			.setDescription('!admin gracz dust_world teamkilluje nas na hq xd')
+			.setAuthor({ name: 'Llama Warrior [Axis][Team]' })
+			.setDescription('!admin gracz exekk teamkilluje nas na hq xd')
 			.setFooter({ text: 'Server1' });
 
 		try {
