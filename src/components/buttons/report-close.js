@@ -18,6 +18,7 @@ module.exports = {
 		});
 		const triggerMsg = await interaction.channel.messages.fetch(actionId);
 		const embedData = triggerMsg?.embeds[0]?.data;
+		const guildMember = await interaction.guild.members.fetch(interaction.user.id);
 
 		if (!embedData) {
 			await interaction.qEditReply(interaction, 'error', 'Wystąpił błąd.');
@@ -26,9 +27,16 @@ module.exports = {
 
 		let fields = [];
 		if (embedData.fields[embedData.fields.length - 1].name === 'Rozpatrujący zgłoszenie') {
-			fields = [...embedData.fields.slice(0, -1), { name: 'Rozpatrzone przez', value: interaction.user.toString() }];
+			fields = [
+				...embedData.fields.slice(0, -1),
+				{ name: 'Rozpatrzone przez', value: `${interaction.user.toString()} ${guildMember.nickname || interaction.user.displayName}` },
+			];
 		} else {
-			fields = [...embedData.fields, { name: '\u200B', value: '\u200B' }, { name: 'Rozpatrzone przez', value: interaction.user.toString() }];
+			fields = [
+				...embedData.fields,
+				{ name: '\u200B', value: '\u200B' },
+				{ name: 'Rozpatrzone przez', value: `${interaction.user.toString()} ${guildMember.nickname || interaction.user.displayName}` },
+			];
 		}
 		const embed = new EmbedBuilder()
 			.setColor('#40e348')

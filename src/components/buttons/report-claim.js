@@ -18,6 +18,7 @@ module.exports = {
 		});
 		const triggerMsg = await interaction.channel.messages.fetch(actionId);
 		const embedData = triggerMsg?.embeds[0]?.data;
+		const guildMember = await interaction.guild.members.fetch(interaction.user.id);
 
 		if (!embedData) {
 			await interaction.qEditReply(interaction, 'error', 'Wystąpił błąd.');
@@ -26,7 +27,11 @@ module.exports = {
 
 		const row = new ActionRowBuilder().addComponents([new ButtonBuilder().setCustomId(`report-close:${actionId}`).setLabel('Ogarnięte').setStyle(ButtonStyle.Success)]);
 
-		const fields = [...embedData.fields, { name: '\u200B', value: '\u200B' }, { name: 'Rozpatrujący zgłoszenie', value: interaction.user.toString() }];
+		const fields = [
+			...embedData.fields,
+			{ name: '\u200B', value: '\u200B' },
+			{ name: 'Rozpatrujący zgłoszenie', value: `${interaction.user.toString()} ${guildMember.nickname || interaction.user.displayName}` },
+		];
 		const embed = new EmbedBuilder()
 			.setColor('#e8d261')
 			.setDescription(embedData.description)
