@@ -4,6 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const { DateTime, setZone, Interval, diff } = require('luxon');
 const chalk = require('chalk');
 const path = require('path');
+const localConfig = JSON.parse(fs.readFileSync('src/config/local.json', 'utf-8'));
 
 module.exports = (client) => {
 	client.getLine = (e = new Error()) => {
@@ -27,6 +28,7 @@ module.exports = (client) => {
 	};
 
 	client.writeLog = async (msg, type, loc, time, date) => {
+		if (!localConfig?.backupLogsLocally) return;
 		const newData = `\n${date} ${time} | ${type} | ${loc} | ${JSON.stringify(msg)}`;
 		fs.appendFile(`logs/${date}.txt`, newData, (err) => {
 			if (err) console.error(err);
