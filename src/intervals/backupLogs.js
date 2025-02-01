@@ -1,6 +1,5 @@
 const { EmbedBuilder, WebhookClient } = require('discord.js');
 const { DateTime, setZone, Interval, diff } = require('luxon');
-const commaNumber = require('comma-number');
 const schedule = require('node-schedule');
 require('dotenv').config();
 

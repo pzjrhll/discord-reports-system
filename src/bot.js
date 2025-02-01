@@ -1,9 +1,6 @@
 require('dotenv').config();
-const mysql = require('mysql2');
 const fs = require('fs');
 const { Client, Collection, GatewayIntentBits, EmbedBuilder, WebhookClient } = require('discord.js');
-const { DateTime, setZone, Interval, diff } = require('luxon');
-const { v4: uuidv4 } = require('uuid');
 
 const client = new Client({
 	intents: [

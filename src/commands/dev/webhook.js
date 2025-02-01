@@ -18,8 +18,8 @@ module.exports = {
 
 		const embed = new EmbedBuilder()
 			.setColor(config.colors.neutral)
-			.setAuthor({ name: 'Llama Warrior [Axis][Team]' })
-			.setDescription('!admin gracz exekk teamkilluje nas na hq xd')
+			.setAuthor({ name: 'Paranoiks80 [Axis][Team]' })
+			.setDescription('!admin Watermelon teamkilluje nas na hq xd')
 			.setFooter({ text: 'Server1' });
 
 		try {
