@@ -28,7 +28,7 @@ async function parsePlayerInfo(serverid, playername) {
 	).length;
 
 	let playerInfo = {
-		name: player?.name,
+		name: `${player?.name} (${player?.level})`,
 		player_id: player?.player_id,
 		squad: `${player?.team.charAt(0).toUpperCase() + player?.team.slice(1)} | ${player?.unit_name.toUpperCase()} | ${
 			player?.role.charAt(0).toUpperCase() + player?.role.slice(1)
