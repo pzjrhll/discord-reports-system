@@ -26,6 +26,7 @@
    "hllAdminDiscordRole": "",
    "devlockEnabled": false,
    "gitPullEnabled": false,
+   "devUsers": ["351598984529313812"],
    "colors": {
       "primary": "#426fc2",
       "error": "#f04343",

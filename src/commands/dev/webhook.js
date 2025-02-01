@@ -5,12 +5,16 @@ require('dotenv').config();
 module.exports = {
 	data: new SlashCommandBuilder().setName('webhook').setDescription('Do przycisków'),
 	async execute(interaction, client) {
-		// await interaction.deferReply({
-		// 	fetchReply: true,
-		// 	ephemeral: true,
-		// });
+		await interaction.deferReply({
+			fetchReply: true,
+			ephemeral: true,
+		});
 		const config = await client.config();
 		const webhookUrl = process.env.REPORTS_WEBHOOK_URL;
+
+		if (!config.devUsers.includes(interaction.user.id)) {
+			return await interaction.editReply('nuh uh');
+		}
 
 		const embed = new EmbedBuilder()
 			.setColor(config.colors.neutral)
@@ -27,8 +31,7 @@ module.exports = {
 			console.log(err);
 		}
 
-		interaction.reply({
-			ephemeral: true,
+		interaction.editReply({
 			content: 'oki',
 		});
 	},

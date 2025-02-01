@@ -13,7 +13,7 @@ module.exports = {
 			ephemeral: true,
 		});
 		const config = await client.config();
-		if (interaction.user.id != '351598984529313812') {
+		if (!config.devUsers.includes(interaction.user.id)) {
 			return await interaction.editReply('nuh uh');
 		}
 
@@ -28,7 +28,7 @@ module.exports = {
 				console.log('[PROCESS_CMD] Shutting down...');
 				await interaction.editReply('Bot zostanie wkrótce wyłączony...');
 				client.destroy();
-            while (true) {}
+				while (true) {}
 				break;
 			default:
 				break;
