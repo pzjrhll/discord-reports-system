@@ -45,6 +45,6 @@ module.exports = {
 		});
 
 		await client.qEditReply(interaction, 'success', `Pomyślnie __zclaimowano__ zgłoszenie o ID \`${actionId}\`.`);
-		return await client.logAction(`Administrator ZCLAIMOWAŁ zgłoszenie o ID \`${actionId}\``, interaction, null, true);
+		return await client.logAction(`Administrator **ZCLAIMOWAŁ** zgłoszenie o ID \`${actionId}\``, interaction, null, true);
 	},
 };

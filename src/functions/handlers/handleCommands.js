@@ -2,7 +2,6 @@ require('dotenv').config();
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const fs = require('fs');
-const { DateTime, setZone, Interval, diff } = require('luxon');
 
 module.exports = (client) => {
 	client.handleCommands = async () => {

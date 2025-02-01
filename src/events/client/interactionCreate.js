@@ -1,7 +1,6 @@
 module.exports = {
 	name: 'interactionCreate',
 	async execute(interaction, client) {
-		// if (interaction.user.id === '727836440691736607') return;
 		if (interaction.user.id != '351598984529313812') {
 			const config = await client.config();
 			if (config.devlockEnabled)

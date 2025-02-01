@@ -4,7 +4,6 @@ const { v4: uuidv4 } = require('uuid');
 const { DateTime, setZone, Interval, diff } = require('luxon');
 const chalk = require('chalk');
 const path = require('path');
-const { error } = require('console');
 
 module.exports = (client) => {
 	client.getLine = (e = new Error()) => {

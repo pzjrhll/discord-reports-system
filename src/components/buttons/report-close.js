@@ -50,6 +50,6 @@ module.exports = {
 			content: ' ',
 		});
 		await client.qEditReply(interaction, 'success', `Pomyślnie __zamknięto__ zgłoszenie o ID \`${actionId}\`.`);
-		return await client.logAction(`Administrator ZAMKNĄŁ zgłoszenie o ID \`${actionId}\``, interaction, null, true);
+		return await client.logAction(`Administrator **ZAMKNĄŁ** zgłoszenie o ID \`${actionId}\``, interaction, null, true);
 	},
 };

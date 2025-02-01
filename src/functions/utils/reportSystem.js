@@ -1,6 +1,5 @@
-const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, WebhookClient } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { parsePlayerList, parsePlayerInfo } = require('./playerList.js');
-
 const Fuse = require('fuse.js');
 require('dotenv').config();
 
