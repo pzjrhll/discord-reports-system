@@ -8,7 +8,7 @@ module.exports = async (client) => {
 
 	const job = schedule.scheduleJob('15 * * * *', async function () {
 		try {
-			//
+			////
 		} catch (err) {
 			client.cerr(err);
 		}
