@@ -133,6 +133,7 @@ module.exports = (client) => {
 
 		// ------ Command Usage Logs ------
 		client.logAction = async (actionStr, interaction, targetUserId, success) => {
+			if (!config.logsAllWebhook) return;
 			const log_id = uuidv4();
 			const timeNow = DateTime.now().setZone('Europe/Warsaw').setLocale('pl').toISO();
 			const userId = interaction.user.id;
@@ -166,6 +167,7 @@ module.exports = (client) => {
 		};
 
 		client.logActionManual = async (actionStr, cmdname, interaction, targetUserId, success) => {
+			if (!config.logsAllWebhook) return;
 			const log_id = uuidv4();
 			const timeNow = DateTime.now().setZone('Europe/Warsaw').setLocale('pl').toISO();
 			const userId = interaction.user.id;
