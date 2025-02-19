@@ -53,7 +53,7 @@ async function processReport(message, client) {
 	const victimData = await parsePlayerInfo(serverId, victim);
 
 	const embed = new EmbedBuilder()
-		.setColor('#f03e3e')
+		// .setColor('#f03e3e')
 		.setTitle(`Zgłoszenie - NOWE`)
 		.setDescription(description.join(' '))
 		.addFields(
