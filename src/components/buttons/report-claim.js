@@ -39,7 +39,7 @@ module.exports = {
 			components: [row],
 		});
 
-		await client.qEditReply(interaction, 'success', `Pomyślnie __zclaimowano__ zgłoszenie o ID \`${actionId}\`.`);
-		return await client.logAction(`Administrator **ZCLAIMOWAŁ** zgłoszenie o ID \`${actionId}\``, interaction, null, true);
+		await client.qEditReply(interaction, 'success', `Pomyślnie __przejęto__ zgłoszenie o ID \`${actionId}\`.`);
+		return await client.logAction(`Administrator **PRZEJĄŁ** zgłoszenie o ID \`${actionId}\``, interaction, null, true);
 	},
 };
