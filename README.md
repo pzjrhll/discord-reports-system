@@ -1,8 +1,7 @@
 # Discord Reports
-Instalacja: należy utworzyć pliki .env, src/config/local.json
+You have to create both `.env` and `src/config/local.json`
 
-Opis znaczenia wartości z pliku local.conf
--  `serverReportsWebhookChannelId` - id kanałów, na które wysyłane są zgłoszenie (Server -> Discord) przez webhook
--  `serverReportsDiscordChannelId` - id kanału, na który będą trafiać reporty widoczne dla administracji
--  `servers` - nazwa każdego serwera musi być taka sama jak w footerze webhooka
--  `hllAdminDiscordRole` - rola pingowana przy otrzymaniu reporta
+-  `serverReportsWebhookChannelId` - ID of channels where reports (!admin) are sent (Server -> Discord) via a webhook
+-  `serverReportsDiscordChannelId` - ID of the channel where reports visible to the administration will be sent by the Bot
+-  `servers` - the name of each server must be the same as in the webhook footer
+-  `hllAdminDiscordRole` - role pinged upon receiving a report

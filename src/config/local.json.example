@@ -25,7 +25,6 @@
    },
    "hllAdminDiscordRole": "",
    "devlockEnabled": false,
-   "gitPullEnabled": false,
    "backupLogsLocally": false,
    "devUsers": ["351598984529313812"],
    "colors": {
