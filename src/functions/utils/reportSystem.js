@@ -53,7 +53,7 @@ async function processReport(message, client) {
 	const victimData = await parsePlayerInfo(serverId, victim);
 
 	const embed = new EmbedBuilder()
-		.setColor('#f03e3e')
+		// .setColor('#f03e3e')
 		.setTitle(`Zgłoszenie - NOWE`)
 		.setDescription(description.join(' '))
 		.addFields(
@@ -92,7 +92,8 @@ async function processReport(message, client) {
 		new ButtonBuilder().setCustomId(`report-close:${msg.id}`).setLabel('Ogarnięte').setStyle(ButtonStyle.Success),
 	]);
 
-	return await msg.edit({ components: [row], embeds: [embed.setFooter({ text: `ID Zgłoszenia: ${msg.id} | ${serverId}` })] });
+	await msg.edit({ components: [row], embeds: [embed.setFooter({ text: `ID Zgłoszenia: ${msg.id} | ${serverId}` })] });
+	await msg.startThread({ name: 'Zgłoszenie', autoArchiveDuration: 1440 });
 }
 
 module.exports = { processReport };

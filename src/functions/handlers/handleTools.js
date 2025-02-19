@@ -133,6 +133,7 @@ module.exports = (client) => {
 
 		// ------ Command Usage Logs ------
 		client.logAction = async (actionStr, interaction, targetUserId, success) => {
+			if (!config.logsAllWebhook) return;
 			const log_id = uuidv4();
 			const timeNow = DateTime.now().setZone('Europe/Warsaw').setLocale('pl').toISO();
 			const userId = interaction.user.id;
@@ -166,39 +167,11 @@ module.exports = (client) => {
 		};
 
 		client.logActionManual = async (actionStr, cmdname, interaction, targetUserId, success) => {
+			if (!config.logsAllWebhook) return;
 			const log_id = uuidv4();
 			const timeNow = DateTime.now().setZone('Europe/Warsaw').setLocale('pl').toISO();
 			const userId = interaction.user.id;
 			let command = cmdname;
-			try {
-				if (targetUserId) {
-					await client.pool
-						.promise()
-						.query('INSERT INTO sp_logs (log_id, timestamp, u_dcid, actionstr, success, command, t_dcid) VALUES (?, ?, ?, ?, ?, ?, ?)', [
-							log_id,
-							timeNow,
-							userId,
-							actionStr,
-							success,
-							command,
-							targetUserId,
-						]);
-				} else {
-					await client.pool
-						.promise()
-						.query('INSERT INTO sp_logs (log_id, timestamp, u_dcid, actionstr, success, command) VALUES (?, ?, ?, ?, ?, ?)', [
-							log_id,
-							timeNow,
-							userId,
-							actionStr,
-							success,
-							command,
-						]);
-				}
-			} catch (err) {
-				client.cerr(err);
-			}
-
 			try {
 				let embed = new EmbedBuilder()
 					.setColor(success ? config.colors.success : config.colors.error)

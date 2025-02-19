@@ -12,7 +12,7 @@ module.exports = {
 		const config = await client.config();
 		const webhookUrl = process.env.REPORTS_WEBHOOK_URL;
 
-		if (!config.devUsers.includes(interaction.user.id)) {
+		if (!config.devUsers.includes(interaction.user.id) || !webhookUrl) {
 			return await interaction.editReply('nuh uh');
 		}
 
