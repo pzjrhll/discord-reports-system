@@ -98,7 +98,7 @@ async function processReport(message, client) {
 	]);
 
 	await msg.edit({ components: [row], embeds: [embed.setFooter({ text: `ID Zgłoszenia: ${msg.id} | ${serverId}` })] });
-	await msg.startThread({ name: `Zgłoszenie - ${offenderData?.name}`, autoArchiveDuration: 1440 });
+	await msg.startThread({ name: `Zgłoszenie - ${offenderData?.nameRaw}`, autoArchiveDuration: 1440 });
 }
 
 module.exports = { processReport };
