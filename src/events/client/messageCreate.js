@@ -11,7 +11,9 @@ module.exports = {
 			const config = client.config();
 
 			if (config.serverReportsWebhookChannelId.includes(message.channel.id) && message.author.bot && message.author.id !== process.env.DISCORD_CLIENT_ID) {
-				return processReport(message, client);
+				if (message.embeds[0]?.description && message.embeds[0]?.description?.startsWith('!admin')) {
+					return processReport(message, client);
+				}
 			}
 		} catch (err) {
 			client.cerr(err);
