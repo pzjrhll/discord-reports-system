@@ -18,9 +18,9 @@ module.exports = {
 
 		const embed = new EmbedBuilder()
 			.setColor(config.colors.neutral)
-			.setAuthor({ name: 'Paranoiks80 [Axis][Team]' })
-			.setDescription('!admin Watermelon teamkilluje nas na hq xd')
-			.setFooter({ text: 'Server1' });
+			.setAuthor({ name: 'Syn Papierza                  [Allies][Team]' })
+			.setDescription('!admin Ghoosters teamkilluje nas na hq xd')
+			.setFooter({ text: 'Server2' });
 
 		try {
 			const webhookLog = new WebhookClient({
