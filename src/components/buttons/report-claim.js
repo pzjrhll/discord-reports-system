@@ -1,6 +1,11 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 require('dotenv').config();
 
+const emoji = {
+	orange: '🟧',
+	check: '✅',
+};
+
 module.exports = {
 	data: {
 		name: `report-claim`,
@@ -20,7 +25,9 @@ module.exports = {
 			return await client.logAction(`Wystąpił błąd.`, interaction, null, false);
 		}
 
-		const row = new ActionRowBuilder().addComponents([new ButtonBuilder().setCustomId(`report-close:${actionId}`).setLabel('Ogarnięte').setStyle(ButtonStyle.Success)]);
+		const row = new ActionRowBuilder().addComponents([
+			new ButtonBuilder().setCustomId(`report-close:${actionId}`).setLabel(`${emoji.check} Ogarnięte`).setStyle(ButtonStyle.Success),
+		]);
 
 		const fields = [
 			...embedData.fields,

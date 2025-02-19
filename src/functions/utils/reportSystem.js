@@ -3,6 +3,11 @@ const { parsePlayerList, parsePlayerInfo } = require('./playerList.js');
 const Fuse = require('fuse.js');
 require('dotenv').config();
 
+const emoji = {
+	orange: '🟧',
+	check: '✅',
+};
+
 async function guessUser(inputRaw, serverId) {
 	let input = inputRaw.replace(/\[.*?\]/g, ''); // kasowanie tagów klanowych
 	input = input.replace(/[^a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ ]/g, ''); // kasowanie znaków specjalnych
@@ -88,8 +93,8 @@ async function processReport(message, client) {
 		content: `<@&${config.hllAdminDiscordRole}>`,
 	});
 	const row = new ActionRowBuilder().addComponents([
-		new ButtonBuilder().setCustomId(`report-claim:${msg.id}`).setLabel('Zajmuję się tym').setStyle(ButtonStyle.Primary),
-		new ButtonBuilder().setCustomId(`report-close:${msg.id}`).setLabel('Ogarnięte').setStyle(ButtonStyle.Success),
+		new ButtonBuilder().setCustomId(`report-claim:${msg.id}`).setLabel(`${emoji.orange} Zajmuję się tym`).setStyle(ButtonStyle.Primary),
+		new ButtonBuilder().setCustomId(`report-close:${msg.id}`).setLabel(`${emoji.check} Ogarnięte`).setStyle(ButtonStyle.Success),
 	]);
 
 	await msg.edit({ components: [row], embeds: [embed.setFooter({ text: `ID Zgłoszenia: ${msg.id} | ${serverId}` })] });
