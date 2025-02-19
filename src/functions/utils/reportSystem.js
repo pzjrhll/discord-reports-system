@@ -50,7 +50,6 @@ async function processReport(message, client) {
 	const potentialOffender = await guessUser(description.join(' '), serverId);
 	const offenderData = await parsePlayerInfo(serverId, potentialOffender?.name);
 	const victim = embedData?.author?.name.split(/\s+/).slice(0, -1).join(' ');
-	console.log(victim);
 	const victimData = await parsePlayerInfo(serverId, victim);
 
 	const embed = new EmbedBuilder()
