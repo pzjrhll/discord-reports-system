@@ -49,7 +49,8 @@ async function processReport(message, client) {
 	const description = embedData?.description.split(/\s+/).slice(1);
 	const potentialOffender = await guessUser(description.join(' '), serverId);
 	const offenderData = await parsePlayerInfo(serverId, potentialOffender?.name);
-	const victim = embedData?.author?.name.split(' ').slice(0, -1).join(' ');
+	const victim = embedData?.author?.name.split(/\s+/).slice(0, -1).join(' ');
+	console.log(victim);
 	const victimData = await parsePlayerInfo(serverId, victim);
 
 	const embed = new EmbedBuilder()
@@ -76,7 +77,7 @@ async function processReport(message, client) {
 			{ name: 'Squad', value: offenderData?.squad || 'N/A', inline: true },
 			{ name: 'Czas na serwerze', value: offenderData?.playtime || 'N/A', inline: true },
 			{ name: 'Status VIP', value: offenderData?.vip || 'N/A', inline: true },
-			{ name: 'Watchlist', value: offenderData?.watchlist || 'N/A', inline: true },
+			{ name: 'Watchlist', value: offenderData?.watchlist?.reason || 'N/A', inline: true },
 			{ name: 'Kary', value: offenderData?.penalty_count || 'N/A', inline: true },
 			{ name: 'Statystyki', value: offenderData?.stats || 'N/A', inline: true },
 			{ name: 'Serie', value: offenderData?.series || 'N/A', inline: true }
