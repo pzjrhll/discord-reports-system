@@ -171,35 +171,6 @@ module.exports = (client) => {
 			const userId = interaction.user.id;
 			let command = cmdname;
 			try {
-				if (targetUserId) {
-					await client.pool
-						.promise()
-						.query('INSERT INTO sp_logs (log_id, timestamp, u_dcid, actionstr, success, command, t_dcid) VALUES (?, ?, ?, ?, ?, ?, ?)', [
-							log_id,
-							timeNow,
-							userId,
-							actionStr,
-							success,
-							command,
-							targetUserId,
-						]);
-				} else {
-					await client.pool
-						.promise()
-						.query('INSERT INTO sp_logs (log_id, timestamp, u_dcid, actionstr, success, command) VALUES (?, ?, ?, ?, ?, ?)', [
-							log_id,
-							timeNow,
-							userId,
-							actionStr,
-							success,
-							command,
-						]);
-				}
-			} catch (err) {
-				client.cerr(err);
-			}
-
-			try {
 				let embed = new EmbedBuilder()
 					.setColor(success ? config.colors.success : config.colors.error)
 					.setTitle(command)
