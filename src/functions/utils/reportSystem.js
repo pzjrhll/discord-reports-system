@@ -62,12 +62,12 @@ async function processReport(message, client) {
 			{ name: 'Zgłaszający', value: victimData?.name || 'N/A', inline: true },
 			{ name: 'ID', value: victimData?.player_id || 'N/A', inline: true },
 			{ name: 'Squad', value: victimData?.squad || 'N/A', inline: true },
-			{ name: 'Czas na serwerze | połączenia', value: victimData?.playtime || 'N/A', inline: true },
+			{ name: 'Czas na serwerze', value: victimData?.playtime || 'N/A', inline: true },
 			{ name: 'Status VIP', value: victimData?.vip || 'N/A', inline: true },
 			{ name: 'Watchlist', value: victimData?.watchlist || 'N/A', inline: true },
 			{ name: 'Kary', value: victimData?.penalty_count || 'N/A', inline: true },
-			{ name: 'K/D/TK', value: victimData?.stats || 'N/A', inline: true },
-			{ name: 'Seria K/Z/TK', value: victimData?.series || 'N/A', inline: true },
+			{ name: 'Statystyki', value: victimData?.stats || 'N/A', inline: true },
+			{ name: 'Serie', value: victimData?.series || 'N/A', inline: true },
 
 			{ name: '\u200B', value: '\u200B' },
 
