@@ -28,7 +28,7 @@ module.exports = {
 			{ name: 'Rozpatrujący zgłoszenie', value: `${interaction.user.toString()} ${guildMember.nickname || interaction.user.displayName}` },
 		];
 		const embed = new EmbedBuilder()
-			.setColor('#e8d261')
+			.setColor('#edad18')
 			.setDescription(embedData.description)
 			.addFields(fields)
 			.setTitle('Zgłoszenie - W TRAKCIE')
