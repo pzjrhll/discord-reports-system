@@ -1,7 +1,14 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { parsePlayerList, parsePlayerInfo } = require('./playerList.js');
+const { messagePlayer } = require('./apiWrapper.js');
 const Fuse = require('fuse.js');
 require('dotenv').config();
+
+const messages = {
+	noDescription: 'PL: Aby zgłosić sprawę do admina, wpisz !admin <wiadomość do admina>\n\nENG: To report an issue to the admin, please type !admin <message to admin>.',
+	reportSent:
+		'PL: Twoje zgłoszenie została wysłane! Prosimy o niewysyłanie wielu wiadomości w sprawie tego samego zgłoszenia - ktoś wkrótce się nim zajmie.\n\nENG: Your report has been submitted! Please refrain from sending multiple reports regarding the same issue - someone will handle it shortly.',
+};
 
 const emoji = {
 	orange: '🟧',
@@ -52,10 +59,13 @@ async function processReport(message, client) {
 
 	const serverId = embedData?.footer?.text.toLowerCase();
 	const description = embedData?.description.split(/\s+/).slice(1);
-	const potentialOffender = await guessUser(description.join(' '), serverId);
-	const offenderData = await parsePlayerInfo(serverId, potentialOffender?.name);
 	const victim = embedData?.author?.name.split(/\s+/).slice(0, -1).join(' ');
 	const victimData = await parsePlayerInfo(serverId, victim);
+	if (description.length < 1) {
+		return await messagePlayer(serverId, victimData?.player_id, messages.noDescription, 'System');
+	}
+	const potentialOffender = await guessUser(description.join(' '), serverId);
+	const offenderData = await parsePlayerInfo(serverId, potentialOffender?.name);
 
 	const embed = new EmbedBuilder()
 		// .setColor('#f03e3e')
@@ -69,7 +79,7 @@ async function processReport(message, client) {
 			{ name: 'Squad', value: victimData?.squad || 'N/A', inline: true },
 			{ name: 'Czas na serwerze', value: victimData?.playtime || 'N/A', inline: true },
 			{ name: 'Status VIP', value: victimData?.vip || 'N/A', inline: true },
-			{ name: 'Watchlist', value: victimData?.watchlist || 'N/A', inline: true },
+			{ name: 'Watchlist', value: victimData?.watchlist?.reason || 'N/A', inline: true },
 			{ name: 'Kary', value: victimData?.penalty_count || 'N/A', inline: true },
 			{ name: 'Statystyki', value: victimData?.stats || 'N/A', inline: true },
 			{ name: 'Serie', value: victimData?.series || 'N/A', inline: true },
@@ -99,6 +109,8 @@ async function processReport(message, client) {
 
 	await msg.edit({ components: [row], embeds: [embed.setFooter({ text: `ID Zgłoszenia: ${msg.id} | ${serverId}` })] });
 	await msg.startThread({ name: `Zgłoszenie - ${offenderData?.nameRaw}`, autoArchiveDuration: 1440 });
+
+	return await messagePlayer(serverId, victimData?.player_id, messages.reportSent, 'System');
 }
 
 module.exports = { processReport };
