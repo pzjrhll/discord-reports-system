@@ -55,4 +55,30 @@ async function getPlayerDetailedInfo(serverId, playerName) {
 	}
 }
 
-module.exports = { getPlayerIds, getPlayerDetailedInfo, getPlayerStats };
+async function messagePlayer(serverId, playerId, message, sender) {
+	const server = localConfig.servers[serverId];
+	const url = `${server.apiBaseUrl}message_player`;
+
+	try {
+		const response = await axios.post(
+			url,
+			{
+				player_id: playerId,
+				message: message,
+				by: sender,
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${apiKey}`,
+					'Content-Type': 'application/json',
+				},
+			}
+		);
+		return response.data;
+	} catch (error) {
+		console.error('Error messaging a player:', error);
+		throw error;
+	}
+}
+
+module.exports = { getPlayerIds, getPlayerDetailedInfo, getPlayerStats, messagePlayer };
