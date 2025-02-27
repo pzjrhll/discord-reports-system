@@ -95,9 +95,10 @@ async function processReport(message, authorName, serverId, client) {
 
 	const guild = await client.guilds.fetch(process.env.DISCORD_GUILD_ID);
 	const channel = await guild.channels.fetch(config.serverReportsDiscordChannelId);
+	const pingText = config.servers[serverId].roles.map((role) => `<@&${role}>`).join(' ');
 	const msg = await channel.send({
 		// embeds: [embed],
-		content: `<@&${config.hllAdminDiscordRole}>`,
+		content: pingText || '.',
 	});
 	const row = new ActionRowBuilder().addComponents([
 		new ButtonBuilder().setCustomId(`report-claim:${msg.id}`).setLabel(`${emoji.orange} Zajmuję się tym`).setStyle(ButtonStyle.Primary),
