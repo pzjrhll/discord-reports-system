@@ -4,24 +4,29 @@
    "servers": {
       "server1": {
          "name": "server1",
-         "apiBaseUrl": "https://rcon1.pzjr.pl/api/"
+         "apiBaseUrl": "https://rcon1.pzjr.pl/api/",
+         "wsUrl": "wss://rcon1.pzjr.pl/ws/logs"
       },
       "server2": {
          "name": "server2",
-         "apiBaseUrl": "https://rcon2.pzjr.pl/api/"
+         "apiBaseUrl": "https://rcon2.pzjr.pl/api/",
+         "wsUrl": "wss://rcon2.pzjr.pl/ws/logs"
       },
       "server3": {
          "name": "server3",
-         "apiBaseUrl": "https://rcon3.pzjr.pl/api/"
+         "apiBaseUrl": "https://rcon3.pzjr.pl/api/",
+         "wsUrl": "wss://rcon3.pzjr.pl/ws/logs"
       },
       "server4": {
          "name": "server4",
-         "apiBaseUrl": "https://rcon4.pzjr.pl/api/"
+         "apiBaseUrl": "https://rcon4.pzjr.pl/api/",
+         "wsUrl": "wss://rcon4.pzjr.pl/ws/logs"
       },
       "server5": {
-         "name": "server5",
-         "apiBaseUrl": "https://rcon5.pzjr.pl/api/"
-      }
+        "name": "server5",
+        "apiBaseUrl": "https://rcon5.pzjr.pl/api/",
+        "wsUrl": "wss://rcon5.pzjr.pl/ws/logs"
+     }
    },
    "hllAdminDiscordRole": "",
    "devlockEnabled": false,
