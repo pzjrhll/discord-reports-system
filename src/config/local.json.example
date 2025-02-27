@@ -1,5 +1,4 @@
 {
-   "serverReportsWebhookChannelId": [],
    "serverReportsDiscordChannelId": "",
    "servers": {
       "server1": {
