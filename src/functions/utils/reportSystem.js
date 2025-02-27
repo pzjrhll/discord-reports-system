@@ -51,15 +51,11 @@ async function guessUser(inputRaw, serverId) {
 	return results[0]?.item;
 }
 
-async function processReport(message, client) {
+async function processReport(message, authorName, serverId, client) {
 	const config = client.config();
-	const triggerMsg = message;
-	const embedData = triggerMsg?.embeds[0];
-	if (!embedData) return console.log('No embed data');
-
-	const serverId = embedData?.footer?.text.toLowerCase();
-	const description = embedData?.description.split(/\s+/).slice(1);
-	const victim = embedData?.author?.name.split(/\s+/).slice(0, -1).join(' ');
+	// const serverId = embedData?.footer?.text.toLowerCase();
+	const description = message.split(/\s+/).slice(1);
+	const victim = authorName;
 	const victimData = await parsePlayerInfo(serverId, victim);
 	if (description.length < 1) {
 		return await messagePlayer(serverId, victimData?.player_id, messages.noDescription, 'System');
@@ -97,7 +93,8 @@ async function processReport(message, client) {
 			{ name: 'Serie', value: offenderData?.series || 'N/A', inline: true }
 		);
 
-	const channel = await message.guild.channels.fetch(config.serverReportsDiscordChannelId);
+	const guild = await client.guilds.fetch(process.env.DISCORD_GUILD_ID);
+	const channel = await guild.channels.fetch(config.serverReportsDiscordChannelId);
 	const msg = await channel.send({
 		// embeds: [embed],
 		content: `<@&${config.hllAdminDiscordRole}>`,
