@@ -1,7 +1,7 @@
 const fs = require('fs');
 const WebSocket = require('ws');
 require('dotenv').config();
-const localConfig = require('../../config/local.json');
+const localConfig = require('../../../local.json');
 const { processReport } = require('../utils/reportSystem.js');
 
 const authToken = process.env.RCON_API_KEY;
