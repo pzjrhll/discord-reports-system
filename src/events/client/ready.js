@@ -25,5 +25,6 @@ module.exports = {
 		await client.handleCommands();
 		await client.handleComponents();
 		await client.handleIntervals(client);
+		await client.handleWebsockets();
 	},
 };
