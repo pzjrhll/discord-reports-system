@@ -1,4 +1,4 @@
 .env
 node_modules
 logs
-src/config/local.json
+local.json

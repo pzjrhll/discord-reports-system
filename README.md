@@ -1,5 +1,6 @@
 # Discord Reports
-You have to create both `.env` and `src/config/local.json`
+
+You have to create both `.env` and `local.json`
 
 -  `serverReportsWebhookChannelId` - ID of channels where reports (!admin) are sent (Server -> Discord) via a webhook
 -  `serverReportsDiscordChannelId` - ID of the channel where reports visible to the administration will be sent by the Bot

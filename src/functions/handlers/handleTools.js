@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const { DateTime, setZone, Interval, diff } = require('luxon');
 const chalk = require('chalk');
 const path = require('path');
-const localConfig = JSON.parse(fs.readFileSync('src/config/local.json', 'utf-8'));
+const localConfig = require('../../../local.json');
 
 module.exports = (client) => {
 	client.getLine = (e = new Error()) => {

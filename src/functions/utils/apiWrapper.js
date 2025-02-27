@@ -1,7 +1,7 @@
 require('dotenv').config();
 const apiKey = process.env.RCON_API_KEY;
 const axios = require('axios');
-const localConfig = require('../../config/local.json');
+const localConfig = require('../../../local.json');
 
 async function getPlayerIds(serverId) {
 	const server = localConfig.servers[serverId];

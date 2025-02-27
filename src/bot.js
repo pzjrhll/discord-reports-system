@@ -12,8 +12,7 @@ const client = new Client({
 	],
 });
 
-const localConfig = JSON.parse(fs.readFileSync('./src/config/local.json', 'utf-8'));
-
+const localConfig = require('../local.json');
 client.config = () => {
 	let obj = localConfig;
 	obj.logsAllWebhook = process.env.LOGS_WEBHOOK_URL;
