@@ -1,0 +1,7 @@
+services:
+  discord-reports-system:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./local.json:/app/local.json:ro
