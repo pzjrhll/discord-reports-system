@@ -3,6 +3,23 @@ const apiKey = process.env.RCON_API_KEY;
 const axios = require('axios');
 const localConfig = require('../../../local.json');
 
+async function getIngameAdmins(serverId) {
+	const server = localConfig.servers[serverId];
+	const url = `${server.apiBaseUrl}/get_ingame_mods`;
+
+	try {
+		const response = await axios.get(url, {
+			headers: {
+				Authorization: `Bearer ${apiKey}`,
+			},
+		});
+		return response.data;
+	} catch (error) {
+		console.error('Error fetching player IDs:', error);
+		throw error;
+	}
+}
+
 async function getPlayerIds(serverId) {
 	const server = localConfig.servers[serverId];
 	const url = `${server.apiBaseUrl}/get_playerids`;
@@ -81,4 +98,4 @@ async function messagePlayer(serverId, playerId, message, sender) {
 	}
 }
 
-module.exports = { getPlayerIds, getPlayerDetailedInfo, getPlayerStats, messagePlayer };
+module.exports = { getPlayerIds, getPlayerDetailedInfo, getPlayerStats, messagePlayer, getIngameAdmins };

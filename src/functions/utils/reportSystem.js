@@ -1,6 +1,6 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const { parsePlayerList, parsePlayerInfo } = require('./playerList.js');
-const { messagePlayer } = require('./apiWrapper.js');
+const { messagePlayer, getIngameAdmins } = require('./apiWrapper.js');
 const Fuse = require('fuse.js');
 require('dotenv').config();
 
@@ -108,6 +108,14 @@ async function processReport(message, authorName, serverId, client) {
 	await msg.edit({ components: [row], embeds: [embed.setFooter({ text: `ID Zgłoszenia: ${msg.id} | ${serverId}` })] });
 	await msg.startThread({ name: `Zgłoszenie - ${offenderData?.nameRaw}`, autoArchiveDuration: 1440 });
 
+	const ingameAdmins = await getIngameAdmins(serverId);
+	const adminPreviewMsg = `OTRZYMANO NOWE ZGŁOSZENIE!\nOd: ${victimData?.nameRaw || 'N/A'} [${victimData?.squad}] \nNa: ${offenderData?.nameRaw || 'N/A'} [${
+		offenderData?.squad
+	}]\n\nTreść: ${description.join(' ')}`;
+	for (const admin of ingameAdmins?.result) {
+		const adminId = admin?.player_id;
+		await messagePlayer(serverId, adminId, adminPreviewMsg, 'System');
+	}
 	return await messagePlayer(serverId, victimData?.player_id, messages.reportSent, 'System');
 }
 
