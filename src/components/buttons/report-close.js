@@ -37,7 +37,7 @@ module.exports = {
 			.setColor('#40e348')
 			.setDescription(embedData.description)
 			.addFields(fields)
-			.setTitle('Zgłoszenie - ZAMKNIĘTE')
+			.setTitle(`Zgłoszenie - ZAMKNIĘTE (${serverId})`)
 			.setFooter({ text: embedData?.footer?.text });
 		await triggerMsg.edit({
 			embeds: [embed],

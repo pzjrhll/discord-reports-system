@@ -65,7 +65,7 @@ async function processReport(message, authorName, serverId, client) {
 
 	const embed = new EmbedBuilder()
 		// .setColor('#f03e3e')
-		.setTitle(`Zgłoszenie - NOWE`)
+		.setTitle(`Zgłoszenie - NOWE (${serverId})`)
 		.setDescription(description.join(' '))
 		.addFields(
 			{ name: '\u200B', value: '\u200B' },

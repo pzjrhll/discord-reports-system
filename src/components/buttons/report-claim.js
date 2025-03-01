@@ -38,7 +38,7 @@ module.exports = {
 			.setColor('#edad18')
 			.setDescription(embedData.description)
 			.addFields(fields)
-			.setTitle('Zgłoszenie - W TRAKCIE')
+			.setTitle(`Zgłoszenie - W TRAKCIE (${serverId})`)
 			.setFooter({ text: embedData?.footer?.text });
 
 		await triggerMsg.edit({
