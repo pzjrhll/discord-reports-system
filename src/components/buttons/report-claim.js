@@ -25,6 +25,7 @@ module.exports = {
 			return await client.logAction(`Wystąpił błąd.`, interaction, null, false);
 		}
 
+		const serverId = embedData?.footer?.text?.split(' | ')[1];
 		const row = new ActionRowBuilder().addComponents([
 			new ButtonBuilder().setCustomId(`report-close:${actionId}`).setLabel(`${emoji.check} Ogarnięte`).setStyle(ButtonStyle.Success),
 		]);

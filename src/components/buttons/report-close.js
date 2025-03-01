@@ -20,6 +20,7 @@ module.exports = {
 			return await client.logAction(`Wystąpił błąd.`, interaction, null, false);
 		}
 
+		const serverId = embedData?.footer?.text?.split(' | ')[1];
 		let fields = [];
 		if (embedData.fields[embedData.fields.length - 1].name === 'Rozpatrujący zgłoszenie') {
 			fields = [
