@@ -25,6 +25,7 @@ module.exports = {
 			return await client.logAction(`Wystąpił błąd.`, interaction, null, false);
 		}
 
+		const serverId = embedData?.footer?.text?.split(' | ')[1];
 		const row = new ActionRowBuilder().addComponents([
 			new ButtonBuilder().setCustomId(`report-close:${actionId}`).setLabel(`${emoji.check} Ogarnięte`).setStyle(ButtonStyle.Success),
 		]);
@@ -38,7 +39,7 @@ module.exports = {
 			.setColor('#edad18')
 			.setDescription(embedData.description)
 			.addFields(fields)
-			.setTitle('Zgłoszenie - W TRAKCIE')
+			.setTitle(`Zgłoszenie - W TRAKCIE (${serverId})`)
 			.setFooter({ text: embedData?.footer?.text });
 
 		await triggerMsg.edit({
