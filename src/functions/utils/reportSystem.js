@@ -39,7 +39,8 @@ async function guessUser(inputRaw, serverId) {
 	const options = {
 		includeScore: true,
 		keys: ['nameParsed'],
-		threshold: 0.45,
+		threshold: 0.37,
+		minMatchCharLength: 3,
 	};
 	const fuse = new Fuse(list, options);
 	let results = [];
