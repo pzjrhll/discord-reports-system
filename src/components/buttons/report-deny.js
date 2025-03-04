@@ -19,7 +19,6 @@ module.exports = {
 			await interaction.qEditReply(interaction, 'error', 'Wystąpił błąd.');
 			return await client.logAction(`Wystąpił błąd.`, interaction, null, false);
 		}
-		console.log(interaction.user);
 
 		const serverId = embedData?.footer?.text?.split(' | ')[1];
 		let fields = [];
