@@ -4,6 +4,7 @@ require('dotenv').config();
 const emoji = {
 	orange: '🟧',
 	check: '✅',
+	trash: '🗑️',
 };
 
 module.exports = {
@@ -28,6 +29,7 @@ module.exports = {
 		const serverId = embedData?.footer?.text?.split(' | ')[1];
 		const row = new ActionRowBuilder().addComponents([
 			new ButtonBuilder().setCustomId(`report-close:${actionId}`).setLabel(`${emoji.check} Ogarnięte`).setStyle(ButtonStyle.Success),
+			new ButtonBuilder().setCustomId(`report-deny:${actionId}`).setLabel(`${emoji.trash} Odrzucam`).setStyle(ButtonStyle.Danger),
 		]);
 
 		const fields = [

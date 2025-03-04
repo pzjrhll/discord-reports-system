@@ -13,6 +13,7 @@ const messages = {
 const emoji = {
 	orange: '🟧',
 	check: '✅',
+	trash: '🗑️',
 };
 
 async function guessUser(inputRaw, serverId) {
@@ -103,6 +104,7 @@ async function processReport(message, authorName, serverId, client) {
 	const row = new ActionRowBuilder().addComponents([
 		new ButtonBuilder().setCustomId(`report-claim:${msg.id}`).setLabel(`${emoji.orange} Zajmuję się tym`).setStyle(ButtonStyle.Primary),
 		new ButtonBuilder().setCustomId(`report-close:${msg.id}`).setLabel(`${emoji.check} Ogarnięte`).setStyle(ButtonStyle.Success),
+		new ButtonBuilder().setCustomId(`report-deny:${msg.id}`).setLabel(`${emoji.trash} Odrzucam`).setStyle(ButtonStyle.Danger),
 	]);
 
 	await msg.edit({ components: [row], embeds: [embed.setFooter({ text: `ID Zgłoszenia: ${msg.id} | ${serverId}` })] });
