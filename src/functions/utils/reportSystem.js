@@ -83,7 +83,11 @@ async function processReport(message, authorName, serverId, client) {
 
 			{ name: '\u200B', value: '\u200B' },
 
-			{ name: 'Podejrzany gracz', value: offenderData?.name || 'N/A', inline: true },
+			{ name: 'Podejrzany gracz', value: offenderData?.name || 'N/A', inline: true }
+		);
+
+	if (offenderData?.name) {
+		embed.addFields(
 			{ name: 'ID', value: offenderData?.player_id || 'N/A', inline: true },
 			{ name: 'Squad', value: offenderData?.squad || 'N/A', inline: true },
 			{ name: 'Czas na serwerze', value: offenderData?.playtime || 'N/A', inline: true },
@@ -93,6 +97,7 @@ async function processReport(message, authorName, serverId, client) {
 			{ name: 'Statystyki', value: offenderData?.stats || 'N/A', inline: true },
 			{ name: 'Serie', value: offenderData?.series || 'N/A', inline: true }
 		);
+	}
 
 	const guild = await client.guilds.fetch(process.env.DISCORD_GUILD_ID);
 	const channel = await guild.channels.fetch(config.serverReportsDiscordChannelId);
