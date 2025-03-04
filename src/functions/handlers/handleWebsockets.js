@@ -43,7 +43,7 @@ module.exports = (client) => {
 
 				ws.on('open', () => {
 					isAlive = true;
-					ws.send(JSON.stringify({ logs: true }));
+					ws.send(JSON.stringify({ last_seen_id: null, actions: ['CHAT'] }));
 					client.cinit(`WebSocket (${name}) connection established`);
 
 					// Start heartbeat checking

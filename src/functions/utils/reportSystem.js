@@ -13,6 +13,7 @@ const messages = {
 const emoji = {
 	orange: '🟧',
 	check: '✅',
+	trash: '🗑️',
 };
 
 async function guessUser(inputRaw, serverId) {
@@ -38,7 +39,8 @@ async function guessUser(inputRaw, serverId) {
 	const options = {
 		includeScore: true,
 		keys: ['nameParsed'],
-		threshold: 0.45,
+		threshold: 0.37,
+		minMatchCharLength: 3,
 	};
 	const fuse = new Fuse(list, options);
 	let results = [];
@@ -82,7 +84,11 @@ async function processReport(message, authorName, serverId, client) {
 
 			{ name: '\u200B', value: '\u200B' },
 
-			{ name: 'Podejrzany gracz', value: offenderData?.name || 'N/A', inline: true },
+			{ name: 'Podejrzany gracz', value: offenderData?.name || 'N/A', inline: true }
+		);
+
+	if (offenderData?.name) {
+		embed.addFields(
 			{ name: 'ID', value: offenderData?.player_id || 'N/A', inline: true },
 			{ name: 'Squad', value: offenderData?.squad || 'N/A', inline: true },
 			{ name: 'Czas na serwerze', value: offenderData?.playtime || 'N/A', inline: true },
@@ -92,6 +98,7 @@ async function processReport(message, authorName, serverId, client) {
 			{ name: 'Statystyki', value: offenderData?.stats || 'N/A', inline: true },
 			{ name: 'Serie', value: offenderData?.series || 'N/A', inline: true }
 		);
+	}
 
 	const guild = await client.guilds.fetch(process.env.DISCORD_GUILD_ID);
 	const channel = await guild.channels.fetch(config.serverReportsDiscordChannelId);
@@ -103,6 +110,7 @@ async function processReport(message, authorName, serverId, client) {
 	const row = new ActionRowBuilder().addComponents([
 		new ButtonBuilder().setCustomId(`report-claim:${msg.id}`).setLabel(`${emoji.orange} Zajmuję się tym`).setStyle(ButtonStyle.Primary),
 		new ButtonBuilder().setCustomId(`report-close:${msg.id}`).setLabel(`${emoji.check} Ogarnięte`).setStyle(ButtonStyle.Success),
+		new ButtonBuilder().setCustomId(`report-deny:${msg.id}`).setLabel(`${emoji.trash} Odrzucam`).setStyle(ButtonStyle.Danger),
 	]);
 
 	await msg.edit({ components: [row], embeds: [embed.setFooter({ text: `ID Zgłoszenia: ${msg.id} | ${serverId}` })] });
