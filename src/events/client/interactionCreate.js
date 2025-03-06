@@ -35,7 +35,7 @@ module.exports = {
 				}
 			}
 		} else if (interaction.isButton()) {
-			const { buttons } = client;
+			const { buttons, clickedButtons } = client;
 			const { customId } = interaction;
 			const [buttonClass, id] = customId.split(':');
 			const button = buttons.get(buttonClass);
@@ -43,7 +43,21 @@ module.exports = {
 			if (!button) return new Error('There is no code for this button.');
 
 			try {
+				if (button?.data?.preventDoubleClick) {
+					const clicked = clickedButtons.get(id);
+					if (clicked) {
+						await interaction.deferReply({
+							ephemeral: true,
+						});
+						return await client.qEditReply(interaction, 'error', `Ten przycisk został już kliknięty przez innego użytkownika. Spróbuj ponownie później.`);
+					}
+					clickedButtons.set(id, true);
+					setTimeout(() => {
+						clickedButtons.delete(id);
+					}, 3 * 1000);
+				}
 				await button.execute(interaction, client, id);
+				clickedButtons.delete(id);
 			} catch (error) {
 				console.log(error);
 			}

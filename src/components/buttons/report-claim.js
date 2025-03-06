@@ -10,6 +10,7 @@ const emoji = {
 module.exports = {
 	data: {
 		name: `report-claim`,
+		preventDoubleClick: true,
 	},
 
 	async execute(interaction, client, actionId) {

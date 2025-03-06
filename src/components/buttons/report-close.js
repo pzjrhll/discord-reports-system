@@ -4,6 +4,7 @@ require('dotenv').config();
 module.exports = {
 	data: {
 		name: `report-close`,
+		preventDoubleClick: true,
 	},
 
 	async execute(interaction, client, actionId) {
