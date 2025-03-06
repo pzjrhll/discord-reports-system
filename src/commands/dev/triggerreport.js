@@ -24,5 +24,6 @@ module.exports = {
 		}
 
 		await processReport(reason, author, server, client);
+		await client.qEditReply(interaction, 'success', 'Sprawdź kanał z zgłoszeniami.');
 	},
 };
