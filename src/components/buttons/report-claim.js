@@ -23,7 +23,7 @@ module.exports = {
 		const guildMember = await interaction.guild.members.fetch(interaction.user.id);
 
 		if (!embedData) {
-			await interaction.qEditReply(interaction, 'error', 'Wystąpił błąd.');
+			await client.qEditReply(interaction, 'error', 'Wystąpił błąd.');
 			return await client.logAction(`Wystąpił błąd.`, interaction, null, false);
 		}
 
