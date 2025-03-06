@@ -17,9 +17,8 @@ module.exports = {
 		);
 		client.commands = new Collection();
 		client.commandArray = [];
+		client.clickedButtons = new Collection(); // to protect against double-clicking
 		client.buttons = new Collection();
-		client.antyPingKampera = new Collection();
-		client.interviewedUsers = new Collection();
 
 		await client.handleTools();
 		await client.handleCommands();
