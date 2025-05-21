@@ -12,6 +12,7 @@ module.exports = {
 			fetchReply: true,
 			ephemeral: true,
 		});
+		const config = await client.config();
 		const triggerMsg = await interaction.channel.messages.fetch(actionId);
 		const embedData = triggerMsg?.embeds[0]?.data;
 		const guildMember = await interaction.guild.members.fetch(interaction.user.id);
