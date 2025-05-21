@@ -18,7 +18,7 @@ module.exports = {
 
 		if (!embedData) {
 			await client.qEditReply(interaction, 'error', 'Wystąpił błąd.');
-			return await client.logAction(`Wystąpił błąd.`, interaction, null, false);
+			return await client.logAction(config.logsAllWebhook, `Wystąpił błąd.`, interaction, null, false);
 		}
 
 		const serverId = embedData?.footer?.text?.split(' | ')[1];
@@ -47,6 +47,7 @@ module.exports = {
 			content: ' ',
 		});
 		await client.qEditReply(interaction, 'success', `Pomyślnie __zamknięto__ zgłoszenie o ID \`${actionId}\`.`);
-		return await client.logAction(`Administrator **ZAMKNĄŁ** zgłoszenie o ID \`${actionId}\``, interaction, null, true);
+		await client.logAction(config.logsCloseWebhook, `Administrator **ZAMKNĄŁ** zgłoszenie o ID \`${actionId}\``, interaction, null, true);
+		return await client.logAction(config.logsAllWebhook, `Administrator **ZAMKNĄŁ** zgłoszenie o ID \`${actionId}\``, interaction, null, true);
 	},
 };
