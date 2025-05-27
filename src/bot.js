@@ -16,6 +16,9 @@ const localConfig = require('../local.json');
 client.config = () => {
 	let obj = localConfig;
 	obj.logsAllWebhook = process.env.LOGS_WEBHOOK_URL;
+	obj.logsClaimWebhook = process.env.LOGS_WEBHOOK_CLAIM_URL;
+	obj.logsCloseWebhook = process.env.LOGS_WEBHOOK_CLOSE_URL;
+	obj.logsDenyWebhook = process.env.LOGS_WEBHOOK_DENY_URL;
 	return obj;
 };
 

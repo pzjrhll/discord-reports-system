@@ -132,8 +132,8 @@ module.exports = (client) => {
 		};
 
 		// ------ Command Usage Logs ------
-		client.logAction = async (actionStr, interaction, targetUserId, success) => {
-			if (!config.logsAllWebhook) return;
+		client.logAction = async (webhook, actionStr, interaction, targetUserId, success) => {
+			if (!webhook) return;
 			const log_id = uuidv4();
 			const timeNow = DateTime.now().setZone('Europe/Warsaw').setLocale('pl').toISO();
 			const userId = interaction.user.id;
@@ -159,7 +159,7 @@ module.exports = (client) => {
 					embed.addFields({ name: 'User', value: `<@${userId}>` }, { name: 'Akcja', value: actionStr });
 				}
 
-				const webhookLog = new WebhookClient({ url: config.logsAllWebhook });
+				const webhookLog = new WebhookClient({ url: webhook });
 				webhookLog.send({ embeds: [embed] });
 			} catch (err) {
 				client.cerr(err);

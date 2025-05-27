@@ -18,13 +18,14 @@ module.exports = {
 			fetchReply: true,
 			ephemeral: true,
 		});
+		const config = await client.config();
 		const triggerMsg = await interaction.channel.messages.fetch(actionId);
 		const embedData = triggerMsg?.embeds[0]?.data;
 		const guildMember = await interaction.guild.members.fetch(interaction.user.id);
 
 		if (!embedData) {
 			await client.qEditReply(interaction, 'error', 'Wystąpił błąd.');
-			return await client.logAction(`Wystąpił błąd.`, interaction, null, false);
+			return await client.logAction(config.logsAllWebhook, `Wystąpił błąd.`, interaction, null, false);
 		}
 
 		const serverId = embedData?.footer?.text?.split(' | ')[1];
@@ -51,6 +52,7 @@ module.exports = {
 		});
 
 		await client.qEditReply(interaction, 'success', `Pomyślnie __przejęto__ zgłoszenie o ID \`${actionId}\`.`);
-		return await client.logAction(`Administrator **PRZEJĄŁ** zgłoszenie o ID \`${actionId}\``, interaction, null, true);
+		await client.logAction(config.logsClaimWebhook, `Administrator **PRZEJĄŁ** zgłoszenie o ID \`${actionId}\``, interaction, null, true);
+		return await client.logAction(config.logsAllWebhook, `Administrator **PRZEJĄŁ** zgłoszenie o ID \`${actionId}\``, interaction, null, true);
 	},
 };
