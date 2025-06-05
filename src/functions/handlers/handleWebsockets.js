@@ -59,7 +59,8 @@ module.exports = (client) => {
 						message?.logs?.forEach((element) => {
 							// console.log(element?.log, name);
 							if (element?.log?.action.startsWith('CHAT')) {
-								if (element?.log?.sub_content.startsWith('!admin')) processReport(element?.log?.sub_content, element?.log?.player_name_1, serverKey, client);
+								const lowerSubContent = element?.log?.sub_content.toLowerCase();
+								if (lowerSubContent.startsWith('!admin')) processReport(element?.log?.sub_content, element?.log?.player_name_1, serverKey, client);
 							}
 						});
 						// heartbeat(); // Reset heartbeat on message received
