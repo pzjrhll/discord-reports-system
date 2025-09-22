@@ -1,6 +1,6 @@
 # HLL Discord Reports System
 [![License](https://img.shields.io/github/license/pzjrhll/discord-reports-system)](./LICENSE)
-![Node.js Version](https://img.shields.io/badge/node-%3E%3D22.12.0-brightgreen)
+![Node.js version](https://img.shields.io/badge/node-%3E%3D22.12.0-brightgreen)
 ![Docker](https://img.shields.io/badge/docker-ready-blue)
 [![GitHub stars](https://img.shields.io/github/stars/pzjrhll/discord-reports-system?style=social)](https://github.com/pzjrhll/discord-reports-system/stargazers)
 
