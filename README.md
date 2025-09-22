@@ -9,7 +9,7 @@ This Discord bot is based on [CRCON](https://github.com/MarechJ/hll_rcon_tool). 
 ![Preview 1](https://github.com/user-attachments/assets/1f32f74d-d95a-41aa-baf9-0309b8087f7e)
 
 ## Requirements
-- Node.js `v22.12.0`
+- Node.js `v18.0.0`
 - Docker & Docker Compose
 
 ## Build and run
