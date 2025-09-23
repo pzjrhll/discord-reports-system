@@ -5,7 +5,7 @@ module.exports = {
 			const config = await client.config();
 			if (config.devlockEnabled)
 				return interaction.editReply({
-					content: 'Bot jest chwilowo wyłączony. Matka cipka zasnęła w serwerowni...',
+					content: 'Bot jest chwilowo wyłączony.',
 					ephermal: true,
 				});
 		}
